@@ -1,0 +1,14 @@
+.btn {
+  display: inline-flex;
+  height: 40px;
+  padding: 0 space(2);
+  border-radius: 4px;
+  align-items: center;
+  color: $white;
+  background-color: $black;
+  transition: .4s;
+
+  &:hover {
+    background-color: lighten($black, 20%);
+  }
+}

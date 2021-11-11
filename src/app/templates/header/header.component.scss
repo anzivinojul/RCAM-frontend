@@ -1,0 +1,55 @@
+@import '../../../assets/scss/master.scss';
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+
+  .logo {
+    margin-right: space(8);
+
+    img {
+    max-width: 128px;
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+
+    a {
+      font-size: 18px;
+      margin-right: space(4);
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        width: 0px;
+        height: 4px;
+        background-color: $white;
+        margin-top: space(.5);
+        transition: width .4s;
+      }
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}

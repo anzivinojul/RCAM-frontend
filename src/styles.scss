@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+// BASE
+
+@import './assets/scss/base/reset';
+@import './assets/scss/base/fonts';
+@import './assets/scss/base/breakpoints';
+@import './assets/scss/base/colors';
+@import './assets/scss/base/mixins';
+@import './assets/scss/base/functions';
+@import './assets/scss/base/body';
+
+// COMPONENTS
+
+@import './assets/scss/components/container';
+@import './assets/scss/components/buttons';
+@import './assets/scss/components/forms';
+
+
+//BODY
+body {
+  background-image: url('./assets/images/background_orange_faded.png');
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  color: $black;
+  font-family: $font;
+  padding: space(4);
+  font-weight: 600;
+}
