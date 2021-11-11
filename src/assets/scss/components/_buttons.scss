@@ -12,3 +12,13 @@
     background-color: lighten($black, 20%);
   }
 }
+
+.btn-border {
+  border: 1px solid $light;
+  background: transparent;
+
+  &:hover {
+    background: $black;
+    border: 1px solid $black;
+  }
+}

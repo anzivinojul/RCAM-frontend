@@ -1,0 +1,16 @@
+label {
+  font-size: .8em;
+  display: block;
+  margin-bottom: space(1);
+}
+
+input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: 1px solid $black;
+  background: transparent;
+  color: $white;
+  font-family: $font;
+  margin-bottom: space(2);
+}
