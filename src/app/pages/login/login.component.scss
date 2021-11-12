@@ -7,6 +7,7 @@
   align-items: center;
   width: 100%;
   height: calc(100vh - 192px);
+  overflow: hidden;
 
   h1 {
     padding: space(5);
@@ -39,7 +40,7 @@
   max-width: 500px;
   margin-bottom: space(5);
 
-  a:first-of-type {
+  button:first-of-type {
     margin-right: space(2);
   }
 }
