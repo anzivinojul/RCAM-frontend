@@ -4,25 +4,45 @@
 
 
       <div class="tabs">
-        <a href="" class="btn">Connexion</a>
-        <a href="" class="btn btn-border">Inscription</a>
+        <a href="#" class="btn" [ngClass]="{'btn-border' : !this.login}" (click)="showConnexion()">Connexion</a>
+        <a href="#" class="btn" [ngClass]="{'btn-border' : this.login}" (click)="showInscription()">Inscription</a>
       </div>
 
-      <div class="connexion">
+      <div class="connexion" *ngIf="this.login">
         <form action="">
 
-        <label for="prenom">Votre pseudo</label>
-        <input type="pseudo" id="pseudo">
+        <label for="username">Votre nom d'utilisateur</label>
+        <input type="username" id="username" placeholder="Nom d'utilisateur">
 
         <label for="password" class="password">Votre mot de passe</label>
-        <input type="password" id="password">
+        <input type="password" id="password" placeholder="Mot de passe">
 
         <div class="submit">
-          <button type="submit">Se connecter</button>
+          <button type="submit" class="btn btn-submit">Se connecter</button>
         </div>
 
         </form>
       </div>
+
+      <div class="inscription" *ngIf="!this.login">
+        <form action="">
+
+          <label for="username">Votre nom d'utilisateur</label>
+          <input type="username" id="username" placeholder="Nom d'utilisateur">
+
+          <label for="password" class="password">Votre mot de passe</label>
+          <input type="password" id="password" placeholder="Mot de passe">
+
+          <label for="password" class="password">Confirmez votre mot de passe</label>
+          <input type="password" id="passwordConfirmed" placeholder="Mot de passe (confirmation)">
+
+          <div class="submit">
+            <button type="submit" class="btn btn-submit">S'inscrire</button>
+          </div>
+
+          </form>
+      </div>
+
 
   </div>
 </div>

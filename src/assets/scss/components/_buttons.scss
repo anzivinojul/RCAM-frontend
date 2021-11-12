@@ -9,16 +9,25 @@
   transition: .4s;
 
   &:hover {
-    background-color: lighten($black, 20%);
+    background-color: lighten($black, 25%);
   }
 }
 
 .btn-border {
-  border: 1px solid $light;
+  border: 1px solid $black;
+  color: $black;
   background: transparent;
 
   &:hover {
-    background: $black;
+    background: $white;
     border: 1px solid $black;
   }
+}
+
+.btn-submit {
+  cursor: pointer;
+  font-family: $font;
+  font-weight: 600;
+  font-size: 1em;
+  border: 1px solid $black;
 }

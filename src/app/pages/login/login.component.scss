@@ -13,10 +13,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: space(5);
+    background-color: lighten($orange, 4%);
+    border: 2px solid $black;
+    border-radius: 4px;
   }
 }
 
 .connexion {
+  width: 100%;
+}
+
+.inscription {
   width: 100%;
 }
 
@@ -28,3 +36,10 @@
     margin-right: space(2);
   }
 }
+
+.submit {
+  display: flex;
+  justify-content: center;
+  margin-top: space(6);
+}
+
