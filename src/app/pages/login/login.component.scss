@@ -2,10 +2,17 @@
 
 .login {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: calc(100vh - 192px);
+
+  h1 {
+    padding: space(5);
+    font-size: 2em;
+    font-weight: 700;
+  }
 
   .login-content {
     width: 400px;
