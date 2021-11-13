@@ -22,9 +22,10 @@ export class LoginComponent implements OnInit {
   });
 
   registerForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-    passwordConfirmed: new FormControl(''),
+    email: new FormControl('', [Validators.email, Validators.required]),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    passwordConfirmed: new FormControl('', [Validators.required]),
   });
 
 
@@ -40,6 +41,10 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.auth.login(this.loginForm.value.username, this.loginForm.value.password);
+  }
+
+  register() {
+    this.auth.register(this.registerForm.value.email, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.passwordConfirmed);
   }
 
   ngOnInit(): void {
