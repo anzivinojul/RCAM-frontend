@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
@@ -9,6 +10,8 @@ export class AuthService {
 
   constructor(
     protected http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   async login(username: string, password: string) {
@@ -18,7 +21,7 @@ export class AuthService {
     })
       .toPromise()
       .then((auth: any) => {
-        console.log(auth);
+        this.router.navigate(['/']);
       })
       .catch((error) => {
         console.log(error);

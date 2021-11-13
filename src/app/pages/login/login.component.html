@@ -6,7 +6,6 @@
 
   <div class="login-content">
 
-
       <div class="tabs">
         <button class="btn" [ngClass]="{'btn-border' : !this.tabs}" (click)="showConnexion()">Connexion</button>
         <button class="btn" [ngClass]="{'btn-border' : this.tabs}" (click)="showInscription()">Inscription</button>
@@ -15,15 +14,15 @@
       <div class="connexion" *ngIf="this.tabs">
         <form [formGroup]="loginForm" (ngSubmit)="login()">
 
-        <label for="username">Votre nom d'utilisateur</label>
-        <input type="username" id="username" placeholder="Nom d'utilisateur" formControlName="username">
+          <label for="username">Votre nom d'utilisateur</label>
+          <input type="username" id="username" placeholder="Nom d'utilisateur" formControlName="username">
 
-        <label for="password" class="password">Votre mot de passe</label>
-        <input type="password" id="password" placeholder="Mot de passe" formControlName="password">
+          <label for="password" class="password">Votre mot de passe</label>
+          <input type="password" id="password" placeholder="Mot de passe" formControlName="password">
 
-        <div class="submit">
-          <button type="submit" class="btn btn-submit">Se connecter</button>
-        </div>
+          <div class="submit">
+            <button type="submit" class="btn btn-submit">Se connecter</button>
+          </div>
 
         </form>
       </div>
@@ -47,9 +46,8 @@
             <button type="submit" class="btn btn-submit">S'inscrire</button>
           </div>
 
-          </form>
+        </form>
       </div>
-
 
   </div>
 </div>
