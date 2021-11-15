@@ -16,12 +16,12 @@
 
   <div class="right">
 
-    <div class="is-login" *ngIf="false">
-      <a routerLink="/" class="btn">Se déconnecter</a>
+    <div class="not-login" *ngIf="!isLogged">
+      <a routerLink="/login" class="btn">Se connecter</a>
     </div>
 
-    <div class="not-login">
-      <a routerLink="/login" class="btn">Se connecter</a>
+    <div class="is-login" *ngIf="isLogged">
+      <button (click)="logout()" class="btn">Se déconnecter</button>
     </div>
 
   </div>

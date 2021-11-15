@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/api/auth.service';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/api/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/core/api/auth.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    protected auth: AuthService
+    protected auth: AuthService,
+    private router: Router,
   ) { }
 
   tabs: boolean | undefined;
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
     passwordConfirmed: new FormControl('', [Validators.required]),
   });
 
+  errorMessage: string | undefined;
 
   showConnexion() {
     this.tabs = true;
@@ -39,15 +42,32 @@ export class LoginComponent implements OnInit {
     this.loginTitle = 'Inscription'
   }
 
-  login() {
-    this.auth.login(this.loginForm.value.username, this.loginForm.value.password);
+  async login() {
+    if(this.loginForm.invalid) {
+      this.errorMessage = 'Veuillez vérifier votre not d\'/utilisateur ou mot de passe';
+    }
+    else {
+      await this.auth.login(this.loginForm.value.username, this.loginForm.value.password);
+    }
   }
 
-  register() {
-    this.auth.register(this.registerForm.value.email, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.passwordConfirmed);
+  async register() {
+    if(this.registerForm.invalid) {
+      this.errorMessage = 'Veuillez vérifier que les champs sont bien complétés';
+    }
+    else if(this.registerForm.value.password != this.registerForm.value.passwordConfirmed) {
+      this.errorMessage = 'Vos mots de passe ne sont pas identiques';
+    }
+    else {
+      this.auth.register(this.registerForm.value.email, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.passwordConfirmed);
+      location.reload();
+    }
   }
 
   ngOnInit(): void {
+    if(this.auth.checkAuth()) {
+      this.router.navigate(['/']);
+    }
     this.showConnexion();
   }
 

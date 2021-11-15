@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class AuthService {
 
   constructor(
     protected http: HttpClient,
-    private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
   ) { }
 
   async login(username: string, password: string) {
@@ -21,10 +22,13 @@ export class AuthService {
     })
       .toPromise()
       .then((auth: any) => {
+        sessionStorage.setItem('jwt', auth.access);
         this.router.navigate(['/']);
+        location.reload();
       })
       .catch((error) => {
         console.log(error);
+        this.toastr.error('Identifiants incorrects', 'Erreur');
       })
   }
 
@@ -43,4 +47,14 @@ export class AuthService {
         console.log(error);
       })
   }
+
+  checkAuth(): boolean {
+    return sessionStorage.getItem('jwt') ? true : false;
+  }
+
+  logout() {
+    sessionStorage.removeItem('jwt');
+    location.reload();
+  }
+
 }

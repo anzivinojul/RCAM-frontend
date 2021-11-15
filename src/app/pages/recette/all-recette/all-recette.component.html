@@ -1,0 +1,50 @@
+<div class="all-recette">
+
+  <div class="filter-bar">
+    <div class="text-search">
+      <h2>Rechercher une recette</h2>
+    </div>
+    <div class="search-bar">
+      <input type="input-search-bar" id="input-search-bar" placeholder="Nom de la recette">
+    </div>
+    <div class="category">
+      <select name ="categories" id="categories-select">
+        <option>Choisir une catégorie</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="list-recettes">
+    <div class="card-recette" *ngFor="let recette of recettesInfos">
+      <div class="img-recette">
+        <img src="https://img-3.journaldesfemmes.fr/_IQKLItHd4BWNdMh-03FtgI2ppM=/750x500/smart/b43857c04c9147e98997f9959bdd8f38/recipe-jdf/10027543.jpg" alt="Cookies">
+      </div>
+      <div class="content-recette">
+        <div class="header-recette">
+          <h2 class="name-recette"> {{ recette.name }} </h2>
+        </div>
+        <div class="informations-recette">
+          <div class="time-recette">
+            <i class="ri-time-line"></i>
+            <div class="time-recette-text">
+              <span id="time-recette-text-responsive">Temps de préparation :</span><span> {{ recette.time }} min </span>
+            </div>
+          </div>
+          <div class="people-recette">
+            <i class="ri-user-line"></i>
+            <div class="people-recette-text">
+              <span id="people-recette-text-responsive">Nombre de personnes : </span><span> 4 personnes </span>
+            </div>
+          </div>
+          <div class="difficulty-recette">
+            <i class="ri-trophy-line"></i>
+            <div class="difficulty-recette-text">
+              <span id="difficulty-recette-text-responsive">Difficulté : </span><span>{{ recette.difficulty }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

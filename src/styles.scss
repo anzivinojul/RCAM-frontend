@@ -7,12 +7,17 @@
 @import './assets/scss/base/mixins';
 @import './assets/scss/base/functions';
 @import './assets/scss/base/body';
+@import './assets/scss/base/messages';
 
 // COMPONENTS
 
 @import './assets/scss/components/container';
 @import './assets/scss/components/buttons';
 @import './assets/scss/components/forms';
+
+//NGX-TOASTR
+
+@import '~ngx-toastr/toastr.css';
 
 
 //BODY
@@ -26,4 +31,10 @@ body {
   font-family: $font;
   padding: space(4);
   font-weight: 600;
+}
+
+@media screen and (max-width: $m) {
+  body {
+    padding: space(4) space(2);
+  }
 }

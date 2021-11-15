@@ -1,0 +1,230 @@
+@import '../../../../assets/scss/master.scss';
+
+.all-recette {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: calc(100vh - 192px);
+}
+
+.filter-bar {
+  margin-top: space(8);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: space(3) space(6);
+  background-color: lighten($orange, 4%);
+  border: 2px solid $black;
+  border-radius: 5px;
+
+  .text-search {
+    font-size: 1.8em;
+    font-weight: 900;
+  }
+
+  .search-bar {
+    width: 25%;
+
+    input {
+      margin-bottom: 0;
+      border: 2px solid $black;
+      font-size: 0.9em;
+    }
+  }
+
+  .category {
+    width: 25%;
+
+    select {
+      margin-bottom: 0;
+      border: 2px solid $black;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.list-recettes {
+  margin-top: space(2);
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: space(2);
+
+  .card-recette {
+    display: flex;
+    min-width: calc(50% - 8px);
+    gap: space(4);
+    padding: space(3) space(3);
+    border: 2px solid $black;
+    border-radius: 10px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: lighten($orange, 4%);
+    }
+
+    .img-recette {
+
+      img {
+        max-width: 200px;
+        max-height: 134px;
+        border: 1px solid $black;
+        border-radius: 2px;
+      }
+    }
+
+    .content-recette {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: calc(100% - 224px);
+
+      .header-recette {
+        font-size: 1.6em;
+        font-weight: 900;
+      }
+
+      .informations-recette {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        min-height: 100%;
+        font-size: 1em;
+
+        .time-recette {
+          display: flex;
+          align-items: center;
+          gap: space(2);
+
+          i {
+            font-weight: 400;
+            font-size: 1.2em;
+          }
+        }
+
+        .people-recette {
+          display: flex;
+          align-items: center;
+          gap: space(2);
+
+          i {
+            font-weight: 400;
+            font-size: 1.2em;
+          }
+        }
+
+        .difficulty-recette {
+          display: flex;
+          align-items: center;
+          gap: space(2);
+
+          i {
+            font-weight: 400;
+            font-size: 1.2em;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: $xl) {
+  .text-search {
+    font-size: 1.5em !important;
+  }
+}
+
+@media screen and (max-width: 1208px) {
+  .list-recettes {
+    .card-recette {
+      min-width: 100% !important;
+    }
+  }
+}
+
+@media screen and (max-width: $l) {
+  .filter-bar {
+    justify-content: space-between;
+    padding: space(3) space(3);
+    gap: space(2);
+
+    .search-bar {
+      width: 100%;
+    }
+
+    .category {
+      width: 100%;
+    }
+
+    .text-search {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: $m) {
+  .list-recettes {
+    .card-recette {
+      .content-recette {
+
+        .header-recette {
+          font-size: 1.2em;
+          font-weight: 900;
+        }
+        .informations-recette {
+
+          .time-recette {
+            gap: space(1);
+
+            .time-recette-text #time-recette-text-responsive {
+              display: none;
+            }
+          }
+
+          .people-recette {
+            gap: space(1);
+
+            .people-recette-text #people-recette-text-responsive {
+              display: none;
+            }
+          }
+
+          .difficulty-recette {
+            gap: space(1);
+
+            .difficulty-recette-text #difficulty-recette-text-responsive {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $s) {
+  .filter-bar {
+    margin-top: space(4);
+  }
+
+  .list-recettes {
+    margin-top: space(4);
+
+    .card-recette {
+      padding: space(2) space(2);
+      .img-recette {
+        img {
+          width: 150px !important;
+          height: 150px !important;
+        }
+      }
+
+      .content-recette {
+        min-width: calc(100% - 174px);
+      }
+    }
+  }
+}
+
