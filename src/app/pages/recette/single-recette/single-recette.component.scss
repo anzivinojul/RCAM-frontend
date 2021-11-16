@@ -84,7 +84,7 @@
   display: flex;
   flex-direction: row;
   min-width: 100%;
-  min-height: calc(100% + 100px);
+  min-height: calc(100vh - 412px - 64px - 64px);
   margin-top: space(4);
 
   .ingredients-recette {
