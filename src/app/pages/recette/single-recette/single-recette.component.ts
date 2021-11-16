@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
+import { Recette } from 'src/app/interface/recette';
 
 @Component({
   selector: 'app-single-recette',
@@ -14,23 +15,23 @@ export class SingleRecetteComponent implements OnInit {
     protected recetteService: RecetteService,
   ) { }
 
-  ngOnInit(): void {
+  recette!: Recette;
 
+  ngOnInit(): void {
+    this.getRecette();
   }
 
   getRecette() {
-  /*
     this.route.params
-      .subscribe(async (id) => {
+      .subscribe(async (param: any) => {
 
-        await this.recetteService.getRecetteById(id)
+        await this.recetteService.getRecetteById(param.id)
           .toPromise()
-          .then(recette: any) => {
-            console.log(recette);
+          .then((recette: any) => {
+            this.recette = recette;
+          })
 
-          }
       })
-  */
   }
 
 

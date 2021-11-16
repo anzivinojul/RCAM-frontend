@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/core/api/category/category.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
 import { Category } from 'src/app/interface/category';
 import { Recette } from 'src/app/interface/recette';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-all-recette',
@@ -14,6 +15,8 @@ export class AllRecetteComponent implements OnInit {
   constructor(
     protected recetteService: RecetteService,
     protected categoryService: CategoryService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   recettesInfos!: Array<Recette>;
@@ -59,6 +62,10 @@ export class AllRecetteComponent implements OnInit {
       .then((recettes: any) => {
         this.recettesInfos = recettes;
       })
+  }
+
+  goToRecette(id: number) {
+    this.router.navigate(['/recette', id])
   }
 
 }

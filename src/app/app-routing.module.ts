@@ -8,7 +8,7 @@ import { SingleRecetteComponent } from './pages/recette/single-recette/single-re
 const routes: Routes = [
   { path : 'login', component: LoginComponent },
   { path : 'create', component: CreateRecetteComponent },
-  { path : 'recette', component: SingleRecetteComponent },
+  { path : 'recette/:id', component: SingleRecetteComponent },
   { path : '', component: AllRecetteComponent }
 ];
 

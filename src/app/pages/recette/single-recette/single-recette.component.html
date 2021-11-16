@@ -1,1 +1,56 @@
-<p>single-recette works!</p>
+<div class="single-recette">
+
+  <div class="description-recette">
+    <div class="img-recette">
+      <img src="{{ recette.img }}" alt="{{ recette.name }}">
+    </div>
+    <div class="content-recette">
+      <div class="header-recette">
+        <h1 class="name-recette"> {{ recette.name }} </h1>
+      </div>
+      <div class="informations-recette">
+        <div class="time-recette">
+          <i class="ri-time-line"></i>
+          <div class="time-recette-text">
+            <span id="time-recette-text-responsive">Temps de préparation :</span><span> {{ recette.time }} min </span>
+          </div>
+        </div>
+        <div class="people-recette">
+          <i class="ri-user-line"></i>
+          <div class="people-recette-text">
+            <span id="people-recette-text-responsive">Nombre de personnes : </span><span> 4 personnes </span>
+          </div>
+        </div>
+        <div class="difficulty-recette">
+          <i class="ri-trophy-line"></i>
+          <div class="difficulty-recette-text">
+            <span id="difficulty-recette-text-responsive">Difficulté : </span><span>{{ recette.difficulty }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="details-recette">
+    <div class="ingredients-recette">
+      <div class="ingredients-header">
+        <h2>Ingrédients</h2>
+      </div>
+      <div class="ingredients-content">
+        <span>Sucre</span>
+        <span>Chocolat</span>
+      </div>
+    </div>
+
+    <div class="preparation-recette">
+      <div class="preparation-header">
+        <h2>Préparation</h2>
+      </div>
+      <div class="preparation-content">
+        <span>1. Ajouter le sucre</span>
+        <span>2. Ajouter le chocolat</span>
+      </div>
+    </div>
+  </div>
+
+</div>

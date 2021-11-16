@@ -11,6 +11,10 @@ export class RecetteService {
     protected http: HttpClient,
   ) { }
 
+  getRecetteById(id_pk: number) {
+    return this.http.get(`${environment.apiURL}/recettes/` + id_pk);
+  }
+
   findRecettes() {
     return this.http.get(`${environment.apiURL}/recettes/`);
   }
