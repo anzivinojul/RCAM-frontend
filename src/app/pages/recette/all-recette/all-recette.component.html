@@ -5,11 +5,14 @@
       <h2>Rechercher une recette</h2>
     </div>
     <div class="search-bar">
-      <input type="input-search-bar" id="input-search-bar" placeholder="Nom de la recette">
+      <input type="input-search-bar" id="input-search-bar" placeholder="Nom de la recette" [(ngModel)]="this.filterNameRecette" (ngModelChange)="this.getRecettesByNameAndByCategory(this.filterNameRecette, this.filterCategoryRecette)">
     </div>
     <div class="category">
-      <select name ="categories" id="categories-select">
+      <select name ="categories" id="categories-select" [(ngModel)]="this.filterCategoryRecette" (ngModelChange)="this.getRecettesByNameAndByCategory(this.filterNameRecette, this.filterCategoryRecette)">
         <option>Choisir une catégorie</option>
+        <option *ngFor="let category of categories">
+          {{ category.name }}
+        </option>
       </select>
     </div>
   </div>
@@ -17,7 +20,7 @@
   <div class="list-recettes">
     <div class="card-recette" *ngFor="let recette of recettesInfos">
       <div class="img-recette">
-        <img src="https://img-3.journaldesfemmes.fr/_IQKLItHd4BWNdMh-03FtgI2ppM=/750x500/smart/b43857c04c9147e98997f9959bdd8f38/recipe-jdf/10027543.jpg" alt="Cookies">
+        <img src="{{ recette.img }}" alt="{{ recette.name }}">
       </div>
       <div class="content-recette">
         <div class="header-recette">

@@ -66,8 +66,8 @@
     .img-recette {
 
       img {
-        max-width: 200px;
-        max-height: 134px;
+        width: 200px;
+        height: 134px;
         border: 1px solid $black;
         border-radius: 2px;
       }
@@ -136,7 +136,7 @@
   }
 }
 
-@media screen and (max-width: 1208px) {
+@media screen and (max-width: 1300px) {
   .list-recettes {
     .card-recette {
       min-width: 100% !important;

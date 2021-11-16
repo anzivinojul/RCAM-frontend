@@ -1,8 +1,10 @@
 export interface Recette {
 
-  name: String,
-  time: String,
+  name: string,
+  time: string,
+  img: String,
+  category: string,
   favorite: boolean,
-  difficulty: String,
+  difficulty: string,
 
 }
