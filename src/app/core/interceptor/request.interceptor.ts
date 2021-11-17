@@ -11,6 +11,8 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../api/auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -18,9 +20,15 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(
     private toastr: ToastrService,
     private router: Router,
+    protected auth: AuthService,
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    if(!(request.url == `${environment.apiURL}/auth/login/refresh/`)) {
+      this.auth.refreshJWT();
+    }
+
     const token: string | null = sessionStorage.getItem('jwt');
 
     if (token) {

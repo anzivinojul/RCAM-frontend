@@ -23,6 +23,7 @@ export class AuthService {
       .toPromise()
       .then((auth: any) => {
         sessionStorage.setItem('jwt', auth.access);
+        sessionStorage.setItem('jwt_refresh', auth.refresh);
         this.router.navigate(['/']);
         location.reload();
       })
@@ -48,12 +49,25 @@ export class AuthService {
       })
   }
 
+  async refreshJWT() {
+    if(sessionStorage.getItem('jwt_refresh')) {
+
+      await this.http.post(`${environment.apiURL}/auth/login/refresh/`, {"refresh": sessionStorage.getItem('jwt_refresh')})
+      .toPromise()
+      .then((auth: any) => {
+        sessionStorage.setItem('jwt', auth.access);
+      });
+
+    }
+  }
+
   checkAuth(): boolean {
     return sessionStorage.getItem('jwt') ? true : false;
   }
 
   logout() {
     sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('jwt_refresh');
     location.reload();
   }
 

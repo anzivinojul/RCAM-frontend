@@ -2,12 +2,12 @@
 
   <div class="left">
 
-    <a [routerLink]="['/']" class="logo">
+    <a [routerLink]="['/']" (click)="refresh()" class="logo">
       <img src="../../../assets/images/logo_RCAM_cropped.png" alt="RCAM">
     </a>
 
     <nav>
-      <a href="#">Les recettes</a>
+      <a [routerLink]="['/']" (click)="refresh()">Les recettes</a>
       <a href="#">Mes favoris</a>
     </nav>
 

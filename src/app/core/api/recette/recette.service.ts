@@ -19,16 +19,16 @@ export class RecetteService {
     return this.http.get(`${environment.apiURL}/recettes/`);
   }
 
-  findRecettesByName(name: string) {
-    return this.http.get(`${environment.apiURL}/recettes/findRecettes/byName/?search=` + name);
-  }
-
-  findRecettesByCategory(category: string) {
-    return this.http.get(`${environment.apiURL}/recettes/findRecettes/byName/?category=` + category);
-  }
-
   findRecettesByNameAndByCategory(name: string, category: string) {
     return this.http.get(`${environment.apiURL}/recettes/findRecettes/byNameAndByCategory/?search=` + name + `&category__name=` + category);
+  }
+
+  findIngredientsByIdRecette(id_pk: number) {
+    return this.http.get(`${environment.apiURL}/recettes/findIngredients/byRecette/?recette=` + id_pk);
+  }
+
+  findPreparationByIdRecette(id_pk: number) {
+    return this.http.get(`${environment.apiURL}/recettes/findPreparations/byRecette/?recette=` + id_pk);
   }
 
 }

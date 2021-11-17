@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/core/api/auth/auth.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
+import { Ingredient } from 'src/app/interface/ingredient';
+import { Preparation } from 'src/app/interface/preparation';
 import { Recette } from 'src/app/interface/recette';
 
 @Component({
@@ -12,16 +15,20 @@ export class SingleRecetteComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    protected authService: AuthService,
     protected recetteService: RecetteService,
   ) { }
 
   recette!: Recette;
+  ingredients!: Array<Ingredient>;
+  preparations!: Array<String>;
 
   ngOnInit(): void {
+    this.recette = <Recette>{};
     this.getRecette();
   }
 
-  getRecette() {
+  async getRecette() {
     this.route.params
       .subscribe(async (param: any) => {
 
@@ -29,8 +36,26 @@ export class SingleRecetteComponent implements OnInit {
           .toPromise()
           .then((recette: any) => {
             this.recette = recette;
+            this.getIngredientsRecette(recette);
+            this.getPreparationRecette(recette);
           })
 
+      })
+  }
+
+  async getIngredientsRecette(recette: Recette) {
+    await this.recetteService.findIngredientsByIdRecette(recette.id)
+      .toPromise()
+      .then((ingredients: any) => {
+        this.ingredients = ingredients;
+      })
+  }
+
+  async getPreparationRecette(recette: Recette) {
+    await this.recetteService.findPreparationByIdRecette(recette.id)
+      .toPromise()
+      .then((preparations: any) => {
+        this.preparations = preparations[0].preparation.preparationList;
       })
   }
 

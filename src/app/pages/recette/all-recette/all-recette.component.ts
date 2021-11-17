@@ -4,6 +4,7 @@ import { RecetteService } from 'src/app/core/api/recette/recette.service';
 import { Category } from 'src/app/interface/category';
 import { Recette } from 'src/app/interface/recette';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { AuthService } from 'src/app/core/api/auth/auth.service';
 
 @Component({
   selector: 'app-all-recette',
@@ -13,9 +14,9 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class AllRecetteComponent implements OnInit {
 
   constructor(
+    protected authService: AuthService,
     protected recetteService: RecetteService,
     protected categoryService: CategoryService,
-    private route: ActivatedRoute,
     private router: Router,
   ) { }
 

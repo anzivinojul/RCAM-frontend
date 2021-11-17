@@ -9,11 +9,14 @@ const routes: Routes = [
   { path : 'login', component: LoginComponent },
   { path : 'create', component: CreateRecetteComponent },
   { path : 'recette/:id', component: SingleRecetteComponent },
-  { path : '', component: AllRecetteComponent }
+  { path : '', component: AllRecetteComponent, runGuardsAndResolvers: 'always' },
 ];
 
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
