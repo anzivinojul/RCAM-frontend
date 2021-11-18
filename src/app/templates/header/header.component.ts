@@ -21,13 +21,11 @@ export class HeaderComponent implements OnInit {
   }
 
   refresh() {
-    if(this.router.url == '/') {
-      location.reload();
-      //TODO emit function to refresh
-    } else {
-      this.router.navigate(['/'])
-        .then(() => location.reload);
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
     }
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/']);
   }
 
   logout() {

@@ -6,9 +6,21 @@
       <img src="../../../assets/images/logo_RCAM_cropped.png" alt="RCAM">
     </a>
 
-    <nav>
-      <a [routerLink]="['/']" (click)="refresh()">Les recettes</a>
-      <a href="#">Mes favoris</a>
+    <nav #navigation>
+      <div class="nav-smallWidth">
+        <label for=toggle>☰</label>
+        <input type="checkbox" id="toggle">
+
+        <div class="linkSmallWidth">
+          <a [routerLink]="['/']" (click)="refresh()" id="linkSmallWidth">Les recettes</a>
+          <a href="#" id="linkSmallWidth">Mes favoris</a>
+        </div>
+      </div>
+
+      <div class="nav-fullWidth">
+        <a [routerLink]="['/']" (click)="refresh()" id="linkFullWidth">Les recettes</a>
+        <a href="#" id="linkFullWidth">Mes favoris</a>
+      </div>
     </nav>
 
   </div>

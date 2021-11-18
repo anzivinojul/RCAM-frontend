@@ -21,6 +21,28 @@ header {
   nav {
     display: flex;
     align-items: center;
+    justify-content: center;
+
+    .nav-smallWidth {
+      display: none;
+
+      label {
+        display: none;
+      }
+
+      #toggle {
+        display: none;
+      }
+
+      .linkSmallWidth {
+        display: none;
+      }
+    }
+
+    .nav-fullWidth {
+      display: flex;
+      justify-content: space-between;
+    }
 
     a {
       font-size: 18px;
@@ -52,4 +74,49 @@ header {
 .right {
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: $l) {
+  .left {
+    min-width: calc(100% - 122.3px - 16px);
+
+    .logo {
+      margin-right: 0;
+    }
+
+    nav {
+      height: 60px;
+      width: 100%;
+
+      .nav-smallWidth {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          width: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0 auto;
+          font-size: 2em;
+          font-weight: 900;
+          color: $black;
+          cursor: pointer;
+        }
+
+        #toggle:checked + .linkSmallWidth {
+          display: block;
+        }
+
+      }
+
+      .nav-fullWidth {
+        display: none;
+        flex-direction: column;
+        background: transparent;
+        height: 220px;
+      }
+    }
+  }
+
 }

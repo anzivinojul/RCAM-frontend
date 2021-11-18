@@ -43,6 +43,9 @@ export class AuthService {
       .toPromise()
       .then((auth: any) => {
         console.log('Inscription réussie : ' + auth);
+        this.login(username, password).then(() => {
+          this.router.navigate(['/']);
+        })
       })
       .catch((error) => {
         console.log(error);

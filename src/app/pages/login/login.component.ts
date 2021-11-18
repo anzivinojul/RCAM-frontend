@@ -52,6 +52,9 @@ export class LoginComponent implements OnInit {
   }
 
   async register() {
+    console.log(this.registerForm);
+
+
     if(this.registerForm.invalid) {
       this.errorMessage = 'Veuillez vérifier que les champs sont bien complétés';
     }
@@ -60,7 +63,6 @@ export class LoginComponent implements OnInit {
     }
     else {
       this.auth.register(this.registerForm.value.email, this.registerForm.value.username, this.registerForm.value.password, this.registerForm.value.passwordConfirmed);
-      location.reload();
     }
   }
 
