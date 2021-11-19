@@ -14,10 +14,22 @@ export class HeaderComponent implements OnInit {
     private router: Router,
   ) { }
 
-  isLogged: boolean | undefined;
+  isLogged!: boolean;
+  showMobileMenu!: boolean;
 
   ngOnInit(): void {
+    this.showMobileMenu = false;
     this.isLogged = this.auth.checkAuth();
+  }
+
+  detectResize(event: Event) {
+    if(window.innerWidth > 800) {
+      this.showMobileMenu = false;
+    }
+  }
+
+  toggleMobileMenu() {
+    this.showMobileMenu = !this.showMobileMenu;
   }
 
   refresh() {

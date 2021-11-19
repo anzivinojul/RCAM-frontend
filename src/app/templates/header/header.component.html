@@ -1,40 +1,42 @@
 <header>
+  <div class="header" (window:resize)="detectResize($event)">
+    <div class="left">
 
-  <div class="left">
+      <a [routerLink]="['/']" (click)="refresh()" class="logo">
+        <img src="../../../assets/images/logo_RCAM_cropped.png" alt="RCAM">
+      </a>
 
-    <a [routerLink]="['/']" (click)="refresh()" class="logo">
-      <img src="../../../assets/images/logo_RCAM_cropped.png" alt="RCAM">
-    </a>
-
-    <nav #navigation>
-      <div class="nav-smallWidth">
-        <label for=toggle>☰</label>
-        <input type="checkbox" id="toggle">
-
-        <div class="linkSmallWidth">
-          <a [routerLink]="['/']" (click)="refresh()" id="linkSmallWidth">Les recettes</a>
-          <a href="#" id="linkSmallWidth">Mes favoris</a>
+      <nav #navigation>
+        <div class="nav-smallWidth">
+          <label (click)="toggleMobileMenu()">☰</label>
         </div>
+
+        <div class="nav-fullWidth">
+          <a [routerLink]="['/']" (click)="refresh()" id="linkFullWidth">Les recettes</a>
+          <a href="#" id="linkFullWidth">Mes favoris</a>
+        </div>
+      </nav>
+
+    </div>
+
+
+    <div class="right">
+
+      <div class="not-login" *ngIf="!isLogged">
+        <a routerLink="/login" class="btn">Se connecter</a>
       </div>
 
-      <div class="nav-fullWidth">
-        <a [routerLink]="['/']" (click)="refresh()" id="linkFullWidth">Les recettes</a>
-        <a href="#" id="linkFullWidth">Mes favoris</a>
+      <div class="is-login" *ngIf="isLogged">
+        <button (click)="logout()" class="btn">Se déconnecter</button>
       </div>
-    </nav>
 
+    </div>
   </div>
 
-
-  <div class="right">
-
-    <div class="not-login" *ngIf="!isLogged">
-      <a routerLink="/login" class="btn">Se connecter</a>
+  <div class="headerMenuMobile" *ngIf="showMobileMenu">
+    <div class="linkSmallWidth">
+      <a [routerLink]="['/']" (click)="refresh()" id="linkSmallWidth">Les recettes</a>
+      <a href="#" id="linkSmallWidth">Mes favoris</a>
     </div>
-
-    <div class="is-login" *ngIf="isLogged">
-      <button (click)="logout()" class="btn">Se déconnecter</button>
-    </div>
-
   </div>
 </header>
