@@ -7,7 +7,7 @@
       </a>
 
       <nav #navigation>
-        <div class="nav-smallWidth">
+        <div class="nav-smallWidth" [ngClass]="{'nav-smallWidth-selected' : this.showMobileMenu}">
           <label (click)="toggleMobileMenu()">☰</label>
         </div>
 
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="headerMenuMobile" *ngIf="showMobileMenu">
+  <div class="headerMenuMobile" [ngClass]="{'headerMenuMobileSelected' : this.showMobileMenu}" *ngIf="showMobileMenu">
     <div class="linkSmallWidth">
       <a [routerLink]="['/']" (click)="refresh()" id="linkSmallWidth">Les recettes</a>
       <a href="#" id="linkSmallWidth">Mes favoris</a>
