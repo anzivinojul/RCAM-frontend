@@ -1,1 +1,30 @@
+<div class="create-recette">
 
+  <div class="create-recette-title">
+    <h1>Créer une recette</h1>
+  </div>
+
+  <div class="create-recette-header">
+    <div class="create-recette-header-left">
+      <div class="input-name">
+        <input type="text" id="name" placeholder="Nom de la recette">
+      </div>
+      <div class="category">
+        <select name ="categories" id="categories-select" [(ngModel)]="this.filterCategoryRecette">
+          <option>Choisir une catégorie</option>
+          <option *ngFor="let category of categories">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="create-recette-header-right">
+      <div class="img">
+        <input type="file" id="file" class="inputfile" (change)="onFileChange($event)">
+        <label for="file">
+           <span *ngIf="!imgURI">Choisir une image</span>
+           <img [src]="imgURI" *ngIf="imgURI"></label>
+      </div>
+    </div>
+  </div>
+</div>
