@@ -52,7 +52,7 @@
 
   .card-recette {
     display: flex;
-    min-width: calc(50% - 8px);
+    width: calc(50% - 8px);
     gap: space(4);
     padding: space(3) space(3);
     background-color: lighten($orange, 4%);
@@ -205,6 +205,29 @@
   }
 }
 
+@media screen and (max-width: 500px) {
+  .filter-bar {
+    flex-direction: column;
+  }
+
+  .list-recettes {
+
+    .card-recette {
+      padding: space(2) space(2);
+      .img-recette {
+        img {
+          width: 174px !important;
+          height: 117px !important;
+        }
+      }
+
+      .content-recette {
+        min-width: calc(100% - 216px);
+      }
+    }
+  }
+}
+
 @media screen and (max-width: $s) {
   .filter-bar {
     margin-top: space(4);
@@ -217,13 +240,42 @@
       padding: space(2) space(2);
       .img-recette {
         img {
-          width: 150px !important;
-          height: 150px !important;
+          width: 149px !important;
+          height: 100px !important;
         }
       }
 
       .content-recette {
-        min-width: calc(100% - 174px);
+        min-width: calc(100% - 194px);
+
+        .header-recette {
+          font-size: 1.1em;
+        }
+
+        .informations-recette {
+          font-size: 0.9em;
+
+          .time-recette {
+
+            i {
+              font-size: 1em;
+            }
+          }
+
+          .people-recette {
+
+            i {
+              font-size: 1em;
+            }
+          }
+
+          .difficulty-recette {
+
+            i {
+              font-size: 1em;
+            }
+          }
+        }
       }
     }
   }
