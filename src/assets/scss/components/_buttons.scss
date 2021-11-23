@@ -28,3 +28,11 @@
     border: 1px solid $black;
   }
 }
+
+.btn-icon {
+  i {
+    font-size: 1em;
+    padding-top: space(0.25);
+    padding-right: space(2);
+  }
+}

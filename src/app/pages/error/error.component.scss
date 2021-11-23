@@ -1,0 +1,105 @@
+@import '../../../assets/scss/master.scss';
+
+.error404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: calc(100vh - 192px);
+  gap: space(10);
+}
+
+.error-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: 100%;
+  gap: space(4);
+
+  .error-title {
+    font-size: 4em;
+    font-weight: 900;
+  }
+
+  .error-content {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+}
+
+.button-redirect {
+
+  i {
+    font-size: 1.2em;
+  }
+
+  span {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: $xl) {
+  .error-box {
+
+    .error-title {
+       font-size: 3.5em;
+    }
+
+    .error-content {
+      font-size: 1.4em;
+    }
+  }
+}
+
+@media screen and (max-width: $l) {
+  .error-box {
+
+    .error-title {
+       font-size: 2.8em;
+    }
+
+    .error-content {
+      font-size: 1.2em;
+    }
+  }
+}
+
+@media screen and (max-width: $m) {
+  .error-box {
+
+    .error-title {
+       font-size: 2em;
+    }
+
+    .error-content {
+      font-size: 1em;
+    }
+  }
+}
+
+@media screen and (max-width: $s) {
+  .error-box {
+
+    .error-title {
+       font-size: 1.8em;
+    }
+
+    .error-content {
+      font-size: 0.9em;
+    }
+  }
+
+  .button-redirect {
+
+    i {
+      font-size: 1em;
+    }
+
+    span {
+      font-size: 1em;
+    }
+  }
+}

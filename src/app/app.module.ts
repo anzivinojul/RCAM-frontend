@@ -15,6 +15,7 @@ import { RequestInterceptor } from './core/interceptor/request.interceptor';
 import { AllRecetteComponent } from './pages/recette/all-recette/all-recette.component';
 import { CreateRecetteComponent } from './pages/recette/create-recette/create-recette.component';
 import { SingleRecetteComponent } from './pages/recette/single-recette/single-recette.component';
+import { ErrorComponent } from './pages/error/error.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SingleRecetteComponent } from './pages/recette/single-recette/single-re
     AllRecetteComponent,
     CreateRecetteComponent,
     SingleRecetteComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

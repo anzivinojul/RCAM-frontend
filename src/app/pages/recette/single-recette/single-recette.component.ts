@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/api/auth/auth.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
 import { Ingredient } from 'src/app/interface/ingredient';
@@ -15,6 +15,7 @@ export class SingleRecetteComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     protected authService: AuthService,
     protected recetteService: RecetteService,
   ) { }
@@ -38,6 +39,9 @@ export class SingleRecetteComponent implements OnInit {
             this.recette = recette;
             this.getIngredientsRecette(recette);
             this.getPreparationRecette(recette);
+          })
+          .catch((error: Error) => {
+            this.router.navigate(['/404']);
           })
 
       })
