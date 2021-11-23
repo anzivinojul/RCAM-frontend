@@ -48,7 +48,8 @@ header {
       }
 
       a {
-        font-size: 18px;
+        font-size: 1.1em;
+        font-weight: 600;
         margin-right: space(4);
 
         &:last-of-type {
@@ -103,6 +104,7 @@ header {
           justify-content: center;
           width: 100%;
           height: calc(100% + 10px);
+          z-index: 1;
 
           label {
             width: 80px;
@@ -154,7 +156,7 @@ header {
       min-width: 100%;
 
       a {
-        font-size: 18px;
+        font-size: 1em;
 
         &:after {
           content: '';
@@ -176,35 +178,13 @@ header {
   }
 
   .headerMenuMobileSelected {
-    position: relative;
     background-color: $black;
     padding: space(2) 0;
     padding-bottom: space(1);
     border: 2px solid $white;
-    border-top: 0;
     border-radius: 5px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-
-    &:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 1px;
-      width: calc((100% / 2) - 40px);
-      border-top: 2px solid $white;
-    }
-
-    &:after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 1px;
-      width: calc((100% / 2) - 40px);
-      border-top: 2px solid $white;
-    }
 
     .linkSmallWidth {
       a {
