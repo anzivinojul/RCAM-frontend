@@ -10,12 +10,24 @@
         <input type="text" id="name" placeholder="Nom de la recette">
       </div>
       <div class="category">
-        <select name ="categories" id="categories-select" [(ngModel)]="this.filterCategoryRecette">
+        <select name="categories" id="categories-select" [(ngModel)]="this.categoryRecette">
           <option>Choisir une catégorie</option>
           <option *ngFor="let category of categories">
             {{ category.name }}
           </option>
         </select>
+      </div>
+      <div class="difficulty">
+        <select name="difficulties" id="difficulties-select" [(ngModel)]="this.difficultyRecette">
+          <option>Choisir une difficulté</option>
+          <option *ngFor="let difficulty of difficulties">
+            {{ difficulty }}
+          </option>
+        </select>
+      </div>
+      <div class="people">
+        <label for="people-label">Nombre de personnes :</label>
+        <input type="text" id="number-people" maxlength="2" pattern="\d*">
       </div>
     </div>
     <div class="create-recette-header-right">
@@ -29,18 +41,101 @@
   </div>
 
   <div class="create-recette-informations">
-    <div class="create-recette-informations-headings">
+
+    <div class="create-recette-headings">
       <h2>Informations sur la recette</h2>
     </div>
-    <div class="create-recette-informations-content">
 
-      <div class="temps-preparation">
-        <label for="tps-preparation">Temps de préparation :</label>
-        <input type="text" id="tps-preparation" placeholder="Temps de préparation" formControlName="tps-preparation">
+    <div class="create-recette-content">
+      <div class="create-recette-times">
+
+        <div class="create-recette-times-headings">
+          <h2>Temps</h2>
+        </div>
+
+        <div class="create-recette-times-content">
+
+          <div class="temps-preparation">
+            <label for="tps-preparation-label">Temps de préparation :</label>
+            <div class="tps-preparation">
+              <input type="text" id="tps-preparation-heure" placeholder="00" maxlength="2" pattern="\d*">
+              <span>heure(s)</span>
+              <input type="text" id="tps-preparation-min" placeholder="00" maxlength="2" pattern="\d*">
+              <span>minute(s)</span>
+            </div>
+          </div>
+
+          <div class="temps-cuisson">
+            <label for="tps-cuisson-label">Temps de cuisson :</label>
+            <div class="tps-cuisson">
+              <input type="text" id="tps-cuisson-heure" placeholder="00" maxlength="2" pattern="\d*">
+              <span>heure(s)</span>
+              <input type="text" id="tps-cuisson-min" placeholder="00" maxlength="2" pattern="\d*">
+              <span>minute(s)</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="create-recette-ingredients">
+        <div class="create-recette-ingredients-headings">
+          <h2>Ingrédients</h2>
+        </div>
+        <div class="create-recette-ingredients-content">
+          <div class="ingredients-recette-list" *ngIf="this.ingredients">
+            <div class="ingredients-recette" *ngFor="let ingredient of ingredients; let index = index">
+              <span>{{ ingredient }}</span>
+              <button class="btn" (click)="deleteIngredient(index)">
+                <i class="ri-subtract-line"></i>
+              </button>
+            </div>
+          </div>
+          <div class="ingredients-add">
+            <input type="text" id="ingredients-add-input" placeholder="Ingrédient" [(ngModel)]="this.ingredient">
+            <button class="btn" (click)="addIngredient()">
+              <i class="ri-add-line"></i>
+            </button>
+          </div>
+        </div>
       </div>
 
 
+      <div class="create-recette-preparations">
+        <div class="create-recette-preparations-headings">
+          <h2>Préparations</h2>
+        </div>
+        <div class="create-recette-preparations-content">
+          <div class="preparations-recette-list" *ngIf="this.preparations">
+            <div class="preparations-recette" *ngFor="let preparation of preparations; let index = index">
+              <span>{{ index + 1 }}. {{ preparation }}</span>
+              <button class="btn btn-delete" (click)="deletePreparation(index)">
+                <i class="ri-subtract-line"></i>
+              </button>
+              <button class="btn btn-up" (click)="getUpPreparation(index)">
+                <i class="ri-arrow-up-s-line"></i>
+              </button>
+              <button class="btn btn-down" (click)="getDownPreparation(index)">
+                <i class="ri-arrow-down-s-line"></i>
+              </button>
+            </div>
+          </div>
+          <div class="preparations-add">
+            <span> {{ getNumeroPreparation() }}.</span>
+            <input type="text" id="preparations-add-input" placeholder="Préparation" [(ngModel)]="this.preparation">
+            <button class="btn btn-add" (click)="addPreparation()">
+              <i class="ri-add-line"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="create-recette-submit">
+      <button class="btn btn-submit">Créer la recette</button>
     </div>
   </div>
 
 </div>
+

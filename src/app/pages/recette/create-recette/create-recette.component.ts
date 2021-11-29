@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/core/api/category/category.service';
 import { Category } from 'src/app/interface/category';
+import { DifficultyType } from 'src/app/interface/difficulty';
 
 @Component({
   selector: 'app-create-recette',
@@ -15,19 +16,21 @@ export class CreateRecetteComponent implements OnInit {
   ) { }
 
   categories!: Array<Category>;
-  filterCategoryRecette!: string;
+  categoryRecette!: string;
+  difficulties: Array<string> = new Array();
+  difficultyRecette!: string;
+
+  ingredients: Array<string> = new Array();
+  ingredient!: string;
+  preparations: Array<string> = new Array();
+  preparation!: string;
 
   imgURI!: string;
-
-  newRecetteForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
-    file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required])
-  });
+  img: any;
 
   ngOnInit(): void {
     this.getCategories();
+    this.getDifficulties();
   }
 
   async getCategories() {
@@ -36,6 +39,11 @@ export class CreateRecetteComponent implements OnInit {
       .then((categories: any) => {
         this.categories = categories;
       })
+  }
+
+  getDifficulties() {
+    this.difficulties.push(DifficultyType.Facile.toString(), DifficultyType.Intermédiaire.toString(), DifficultyType.Difficile.toString());
+    this.difficultyRecette = 'Choisir une difficulté';
   }
 
   onFileChange(event: any) {
@@ -51,13 +59,51 @@ export class CreateRecetteComponent implements OnInit {
 
         this.imgURI = reader.result as string;
 
-        this.newRecetteForm.patchValue({
-          fileSource: reader.result
-        });
+        //this.recetteForm.patchValue({
+          //fileSource: reader.result
+        //});
 
       };
 
     }
+  }
+
+  addIngredient() {
+    this.ingredients.push(this.ingredient);
+    this.ingredient = '';
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1);
+  }
+
+  addPreparation() {
+    this.preparations.push(this.preparation);
+    this.preparation = '';
+  }
+
+  deletePreparation(index: number) {
+    this.preparations.splice(index, 1);
+  }
+
+  getUpPreparation(index: number) {
+    if(this.preparations.length > 1 && index != 0) {
+      [this.preparations[index-1], this.preparations[index]] = [this.preparations[index], this.preparations[index-1]];
+    }
+  }
+
+  getDownPreparation(index: number) {
+    if(this.preparations.length > 1 && index != this.preparations.length - 1) {
+      [this.preparations[index], this.preparations[index+1]] = [this.preparations[index+1], this.preparations[index]];
+    }
+  }
+
+  getNumeroPreparation() {
+    return this.preparations.length + 1;
+  }
+
+  submit() {
+
   }
 
 }
