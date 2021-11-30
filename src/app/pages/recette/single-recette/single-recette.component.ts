@@ -53,6 +53,9 @@ export class SingleRecetteComponent implements OnInit {
       .then((ingredients: any) => {
         this.ingredients = ingredients;
       })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   async getPreparationRecette(recette: Recette) {
@@ -60,6 +63,9 @@ export class SingleRecetteComponent implements OnInit {
       .toPromise()
       .then((preparations: any) => {
         this.preparations = preparations[0].preparation.preparationList;
+      })
+      .catch((error) => {
+        console.log(error);
       })
   }
 

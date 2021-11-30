@@ -4,7 +4,7 @@ export interface Recette {
   name: string,
   time_preparation: string,
   time_cooking: string,
-  img: string,
+  img: any,
   category: string,
   favorite: boolean,
   difficulty: string,

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Recette } from 'src/app/interface/recette';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,6 +30,10 @@ export class RecetteService {
 
   findPreparationByIdRecette(id_pk: number) {
     return this.http.get(`${environment.apiURL}/recettes/findPreparations/byRecette/?recette=` + id_pk);
+  }
+
+  addRecette(recette: Recette) {
+    return this.http.put(`${environment.apiURL}/recettes/`, recette);
   }
 
 }

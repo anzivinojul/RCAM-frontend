@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/core/api/category/category.service';
+import { ImageService } from 'src/app/core/api/image/image.service';
 import { Category } from 'src/app/interface/category';
 import { DifficultyType } from 'src/app/interface/difficulty';
+import { Recette } from 'src/app/interface/recette';
 
 @Component({
   selector: 'app-create-recette',
@@ -13,6 +15,7 @@ export class CreateRecetteComponent implements OnInit {
 
   constructor(
     protected categoryService: CategoryService,
+    protected imageService: ImageService,
   ) { }
 
   categories!: Array<Category>;
@@ -27,6 +30,7 @@ export class CreateRecetteComponent implements OnInit {
 
   imgURI!: string;
   img: any;
+  imgFile: any;
 
   ngOnInit(): void {
     this.getCategories();
@@ -62,6 +66,7 @@ export class CreateRecetteComponent implements OnInit {
         //this.recetteForm.patchValue({
           //fileSource: reader.result
         //});
+        this.imgFile = reader.result;
 
       };
 
@@ -104,6 +109,33 @@ export class CreateRecetteComponent implements OnInit {
 
   submit() {
 
+    //upload image
+    console.log(this.imgFile);
+
+    this.imageService.uploadImage('Image', this.imgFile).subscribe(() => {
+      console.log('image enregistrée');
+    },
+    (error) => {
+      console.log(error);
+    });
+    //create recette
+    //create ingredients recette
+    //create preparations recette
+
+    /*
+    const recette = {
+
+      name: 'Purée',
+      time_preparation: '00:30',
+      time_cooking: '00:15',
+      img: 'recette_img/Purée.jpg',
+      category: 1,
+      favorite: true,
+      difficulty: 'Facile',
+    }
+
+    console.log(recette);
+    */
   }
 
 }

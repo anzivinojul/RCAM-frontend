@@ -66,6 +66,8 @@ export class AllRecetteComponent implements OnInit {
   }
 
   goToRecette(id: number) {
+    console.log(this.recettesInfos);
+
     this.router.navigate(['/recette', id])
   }
 
