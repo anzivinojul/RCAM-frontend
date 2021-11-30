@@ -9,10 +9,16 @@
         <h1 class="name-recette"> {{ recette.name }} </h1>
       </div>
       <div class="informations-recette">
-        <div class="time-recette">
+        <div class="time-preparation-recette">
           <i class="ri-time-line"></i>
-          <div class="time-recette-text">
-            <span id="time-recette-text-responsive">Temps de préparation :</span><span> {{ recette.time }} min </span>
+          <div class="time-preparation-recette-text">
+            <span id="time-preparation-recette-text-responsive">Temps de préparation :</span><span> {{ recette.time_preparation }} min </span>
+          </div>
+        </div>
+        <div class="time-cooking-recette">
+          <i class="ri-blaze-line"></i>
+          <div class="time-cooking-recette-text">
+            <span id="time-cooking-recette-text-responsive">Temps de cuisson :</span><span> {{ recette.time_cooking }} min </span>
           </div>
         </div>
         <div class="people-recette">
