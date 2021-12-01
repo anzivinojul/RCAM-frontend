@@ -62,7 +62,7 @@ export class SingleRecetteComponent implements OnInit {
     await this.recetteService.findPreparationByIdRecette(recette.id)
       .toPromise()
       .then((preparations: any) => {
-        this.preparations = preparations[0].preparation.preparationList;
+        this.preparations = preparations[0].preparation.preparations;
       })
       .catch((error) => {
         console.log(error);
