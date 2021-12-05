@@ -20,7 +20,7 @@ header {
       margin-right: space(8);
 
       img {
-      max-width: 128px;
+      max-width: 144px;
       }
     }
 
@@ -61,7 +61,7 @@ header {
           display: block;
           width: 0px;
           height: 4px;
-          background-color: $white;
+          background-color: $black;
           margin-top: space(.5);
           transition: width .4s;
         }
@@ -103,7 +103,7 @@ header {
           align-items: center;
           justify-content: center;
           width: 100%;
-          height: calc(100% + 10px);
+          height: calc(100% + 18px);
           z-index: 1;
 
           label {
@@ -123,7 +123,7 @@ header {
         .nav-smallWidth-selected {
 
           label {
-            background-color: lighten($orange, 4%);
+            background-color: $card;
             color: $black;
             border: 2px solid $black;
             border-bottom: 0;
@@ -163,7 +163,7 @@ header {
           display: block;
           width: 0px;
           height: 4px;
-          background-color: $white;
+          background-color: $black;
           margin-top: space(.5);
           transition: width .4s;
         }
@@ -178,7 +178,7 @@ header {
   }
 
   .headerMenuMobileSelected {
-    background-color: lighten($orange, 4%);
+    background-color: $card;
     padding: space(2) 0;
     padding-bottom: space(1);
     border: 2px solid $black;

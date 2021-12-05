@@ -24,7 +24,7 @@
   background: transparent;
 
   &:hover {
-    background: $white;
+    background: lighten(gray, 40%);
     border: 1px solid $black;
   }
 }

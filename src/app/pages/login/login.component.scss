@@ -22,7 +22,7 @@
     align-items: center;
     justify-content: center;
     padding: space(5);
-    background-color: lighten($orange, 4%);
+    background-color: $card;
     border: 2px solid $black;
     border-radius: 4px;
   }

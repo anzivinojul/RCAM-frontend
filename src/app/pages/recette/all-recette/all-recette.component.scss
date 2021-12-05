@@ -13,9 +13,8 @@
   justify-content: space-around;
   align-items: center;
   padding: space(3) space(6);
-  background-color: lighten($orange, 4%);
-  border: 2px solid $black;
-  border-radius: 10px;
+  background-color: $card;
+  border: 3px solid $black;
 
   .text-search {
     font-size: 1.8em;
@@ -55,13 +54,13 @@
     width: calc(50% - 8px);
     gap: space(4);
     padding: space(3) space(3);
-    background-color: lighten($orange, 4%);
-    border: 2px solid $black;
-    border-radius: 2px;
+    background-color: $card;
+    border: 3px solid $black;
+    border-radius: 10px;
 
     &:hover {
       cursor: pointer;
-      background-color: lighten($orange, 10%);
+      background-color: lighten($card, 10%);
     }
 
     .img-recette {
@@ -69,7 +68,7 @@
       img {
         width: 200px;
         height: 134px;
-        border: 1px solid $black;
+        border: 2px solid $black;
         border-radius: 2px;
       }
     }
