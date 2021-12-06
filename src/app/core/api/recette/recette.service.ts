@@ -33,7 +33,7 @@ export class RecetteService {
   }
 
   addRecette(recette: Recette) {
-    return this.http.put(`${environment.apiURL}/recettes/`, recette);
+    return this.http.post(`${environment.apiURL}/recettes/add`, recette);
   }
 
 }
