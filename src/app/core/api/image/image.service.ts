@@ -17,10 +17,6 @@ export class ImageService {
     formData.append('name', name);
     formData.append('image', file);
 
-    let headers = new Headers();
-
-    headers.append('Content-Type', 'multipart/form-data')
-
-    return this.http.post(`${environment.apiURL}/image/upload`, formData);
+    return this.http.post(`${environment.apiURL}/image/add`, formData);
   }
 }

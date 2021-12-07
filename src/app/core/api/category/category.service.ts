@@ -14,4 +14,8 @@ export class CategoryService {
   getCategories() {
     return this.http.get(`${environment.apiURL}/category/`);
   }
+
+  findCategoryByName(name: string) {
+    return this.http.get(`${environment.apiURL}/category/?name=` + name);
+  }
 }

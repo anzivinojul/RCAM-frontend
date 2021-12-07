@@ -1,8 +1,11 @@
-import { Recette } from "./recette";
-
 export interface Ingredient {
 
-  name: string;
+  id: number;
+  ingredients: ListIngredients
   recette: number;
 
+}
+
+export interface ListIngredients {
+  list: Array<String>;
 }

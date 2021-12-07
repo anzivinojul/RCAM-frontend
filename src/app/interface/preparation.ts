@@ -7,5 +7,5 @@ export interface Preparation {
 }
 
 export interface ListPreparation {
-  list: string[];
+  list: Array<String>;
 }

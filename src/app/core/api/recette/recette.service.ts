@@ -36,4 +36,23 @@ export class RecetteService {
     return this.http.post(`${environment.apiURL}/recettes/add`, recette);
   }
 
+  addIngredientsToRecette(ingredientsJSON: string, recettePK: number) {
+
+    let formData = new FormData();
+    formData.append('ingredients', ingredientsJSON);
+    formData.append('recette', recettePK.toString());
+
+    return this.http.post(`${environment.apiURL}/recettes/ingredients`, formData);
+  }
+
+  addPreparationsToRecette(preparationsJSON: string, recettePK: number) {
+
+    let formData = new FormData();
+    formData.append('preparations', preparationsJSON);
+    formData.append('recette', recettePK.toString());
+
+    return this.http.post(`${environment.apiURL}/recettes/preparations`, formData);
+  }
+
+
 }

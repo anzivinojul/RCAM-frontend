@@ -10,7 +10,7 @@
         <input type="text" id="name" placeholder="Nom de la recette" formControlName="name">
       </div>
       <div class="category">
-        <select name="categories" id="categories-select" [(ngModel)]="this.categoryRecette" [ngModelOptions]="{standalone: true}">
+        <select name="categories" id="categories-select" [(ngModel)]="this.categoryRecette" [ngModelOptions]="{standalone: true}" (ngModelChange)="getPKCategory(this.categoryRecette)">
           <option>Choisir une catégorie</option>
           <option *ngFor="let category of categories">
             {{ category.name }}
@@ -86,14 +86,14 @@
           <div class="ingredients-recette-list" *ngIf="this.ingredients">
             <div class="ingredients-recette" *ngFor="let ingredient of ingredients; let index = index">
               <span>{{ ingredient }}</span>
-              <button class="btn" (click)="deleteIngredient(index)">
+              <button type='button' class="btn" (click)="deleteIngredient(index)">
                 <i class="ri-subtract-line"></i>
               </button>
             </div>
           </div>
           <div class="ingredients-add">
             <input type="text" id="ingredients-add-input" name="ingredients-add-input" placeholder="Ingrédient" [(ngModel)]="this.ingredient" [ngModelOptions]="{standalone: true}">
-            <button class="btn" (click)="addIngredient()">
+            <button type='button' class="btn" (click)="addIngredient()">
               <i class="ri-add-line"></i>
             </button>
           </div>
@@ -109,13 +109,13 @@
           <div class="preparations-recette-list" *ngIf="this.preparations">
             <div class="preparations-recette" *ngFor="let preparation of preparations; let index = index">
               <span>{{ index + 1 }}. {{ preparation }}</span>
-              <button class="btn btn-delete" (click)="deletePreparation(index)">
+              <button type='button' class="btn btn-delete" (click)="deletePreparation(index)">
                 <i class="ri-subtract-line"></i>
               </button>
-              <button class="btn btn-up" (click)="getUpPreparation(index)">
+              <button type='button' class="btn btn-up" (click)="getUpPreparation(index)">
                 <i class="ri-arrow-up-s-line"></i>
               </button>
-              <button class="btn btn-down" (click)="getDownPreparation(index)">
+              <button type='button' class="btn btn-down" (click)="getDownPreparation(index)">
                 <i class="ri-arrow-down-s-line"></i>
               </button>
             </div>
@@ -123,7 +123,7 @@
           <div class="preparations-add">
             <span> {{ getNumeroPreparation() }}.</span>
             <input type="text" id="preparations-add-input" name="preparations-add-input" placeholder="Préparation" [(ngModel)]="this.preparation" [ngModelOptions]="{standalone: true}">
-            <button class="btn btn-add" (click)="addPreparation()">
+            <button type='button' class="btn btn-add" (click)="addPreparation()">
               <i class="ri-add-line"></i>
             </button>
           </div>

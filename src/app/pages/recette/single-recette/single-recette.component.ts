@@ -21,7 +21,7 @@ export class SingleRecetteComponent implements OnInit {
   ) { }
 
   recette!: Recette;
-  ingredients!: Array<Ingredient>;
+  ingredients!: Array<String>;
   preparations!: Array<String>;
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class SingleRecetteComponent implements OnInit {
     await this.recetteService.findIngredientsByIdRecette(recette.id)
       .toPromise()
       .then((ingredients: any) => {
-        this.ingredients = ingredients;
+        this.ingredients = ingredients[0].ingredients.ingredients;
       })
       .catch((error) => {
         console.log(error);
@@ -62,7 +62,7 @@ export class SingleRecetteComponent implements OnInit {
     await this.recetteService.findPreparationByIdRecette(recette.id)
       .toPromise()
       .then((preparations: any) => {
-        this.preparations = preparations[0].preparation.preparations;
+        this.preparations = preparations[0].preparations.preparations;
       })
       .catch((error) => {
         console.log(error);

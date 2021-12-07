@@ -31,8 +31,9 @@ export class CreateRecetteComponent implements OnInit {
 
   categories!: Array<Category>;
   categoryRecette!: string;
+  categoryPK = '';
   difficulties: Array<string> = new Array();
-  difficultyRecette!: string;
+  difficultyRecette = '';
 
   ingredients: Array<string> = new Array();
   ingredient!: string;
@@ -41,7 +42,7 @@ export class CreateRecetteComponent implements OnInit {
 
   imgURI!: string;
   img: any;
-  imgFile: any;
+  imgFile = null;
 
   ngOnInit(): void {
     this.getCategories();
@@ -54,6 +55,19 @@ export class CreateRecetteComponent implements OnInit {
       .then((categories: any) => {
         this.categories = categories;
       })
+  }
+
+  getPKCategory(name: string) {
+    this.categoryService.findCategoryByName(name).subscribe((category: any) => {
+      if(category[0]) {
+        this.categoryPK = category[0].id;
+      }
+      else {
+        this.categoryPK = '';
+      }
+    }), (error: any) => {
+      console.log(error);
+    }
   }
 
   getDifficulties() {
@@ -73,10 +87,6 @@ export class CreateRecetteComponent implements OnInit {
       reader.onload = () => {
 
         this.imgURI = reader.result as string;
-
-        //this.recetteForm.patchValue({
-          //fileSource: reader.result
-        //});
         this.imgFile = event.target.files[0];
 
       };
@@ -149,43 +159,61 @@ export class CreateRecetteComponent implements OnInit {
     }
   }
 
+  formatJSONArray(array: Array<string>, name: string) : string {
+    return '{"' + name + '":' + JSON.stringify(array) + '}';
+  }
+
   submit() {
 
-    //upload image
-    console.log(this.imgFile);
+    if(this.categoryPK != '') {
+      if(this.difficultyRecette != ''){
+        if(this.imgFile != null) {
 
-    this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((response) => {
-      console.log('image enregistrée');
-      console.log(response);
-    },
-    (error) => {
-      console.log(error);
-    });
+          //upload image [WORKING]
+          this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
+            console.log('Image enregistrée');
 
+            //create recette [WORKING]
+            const recette: Recette = {
+              id: 0,
+              name: this.recetteForm.value.name,
+              time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
+              time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
+              people_number: this.recetteForm.value.numberPeople,
+              category: this.categoryPK,
+              difficulty: this.difficultyRecette,
+              favorite: false,
+              img: image.id,
+            }
 
-    //create recette [WORKING]
-    /*
-    const recette: Recette = {
-      id: 0,
-      name: this.recetteForm.value.name,
-      time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
-      time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
-      number_people: this.recetteForm.value.numberPeople,
-      category: '2',
-      difficulty: this.difficultyRecette,
-      favorite: false,
-      img: '9',
+            this.recetteService.addRecette(recette).subscribe((recette: any) => {
+              console.log('Recette enregistrée');
+
+              //create ingredients recette
+              this.recetteService.addIngredientsToRecette(this.formatJSONArray(this.ingredients, 'ingredients'), recette.id).subscribe((ingredient: any) => {
+                console.log('Ingrédient(s) enregitré(e)(s)');
+
+                //create preparations recette
+                this.recetteService.addPreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), recette.id).subscribe((preparations)=> {
+                  console.log('Préparation(s) réussi(e)(s)');
+
+                }), (error: any) => {
+                  console.log(error);
+                }
+              }), (error: any) => {
+                console.log(error);
+              }
+            }), (error: any) => {
+              console.log(error);
+            };
+          },
+          (error) => {
+            console.log(error);
+          });
+
+        }
+      }
     }
-
-    this.recetteService.addRecette(recette).subscribe((response) => {
-      console.log(response);
-    }), (error: any) => {
-      console.log(error);
-    };
-    */
-
-    //create ingredients recette
-    //create preparations recette
 
   }
 
