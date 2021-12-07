@@ -21,15 +21,15 @@ export class RecetteService {
   }
 
   findRecettesByNameAndByCategory(name: string, category: string) {
-    return this.http.get(`${environment.apiURL}/recettes/findRecettes/byNameAndByCategory/?search=` + name + `&category__name=` + category);
+    return this.http.get(`${environment.apiURL}/recettes/?search=` + name + `&category__name=` + category);
   }
 
   findIngredientsByIdRecette(id_pk: number) {
-    return this.http.get(`${environment.apiURL}/recettes/findIngredients/byRecette/?recette=` + id_pk);
+    return this.http.get(`${environment.apiURL}/recettes/ingredients?recette=` + id_pk);
   }
 
   findPreparationByIdRecette(id_pk: number) {
-    return this.http.get(`${environment.apiURL}/recettes/findPreparations/byRecette/?recette=` + id_pk);
+    return this.http.get(`${environment.apiURL}/recettes/preparations?recette=` + id_pk);
   }
 
   addRecette(recette: Recette) {
