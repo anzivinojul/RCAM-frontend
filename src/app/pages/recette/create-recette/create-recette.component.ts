@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/core/api/category/category.service';
 import { ImageService } from 'src/app/core/api/image/image.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
@@ -18,6 +19,7 @@ export class CreateRecetteComponent implements OnInit {
     protected categoryService: CategoryService,
     protected imageService: ImageService,
     protected recetteService: RecetteService,
+    private router: Router,
   ) { }
 
   recetteForm = new FormGroup({
@@ -196,6 +198,7 @@ export class CreateRecetteComponent implements OnInit {
                 //create preparations recette
                 this.recetteService.addPreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), recette.id).subscribe((preparations)=> {
                   console.log('Préparation(s) réussi(e)(s)');
+                  this.router.navigate(['/']);
 
                 }), (error: any) => {
                   console.log(error);
