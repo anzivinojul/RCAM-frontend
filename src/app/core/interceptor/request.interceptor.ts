@@ -35,9 +35,12 @@ export class RequestInterceptor implements HttpInterceptor {
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }
 
+    //TODO : fix this problem
+    /*
     if (!request.headers.has('Content-Type')) {
         request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
+    */
 
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 

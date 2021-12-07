@@ -152,17 +152,19 @@ export class CreateRecetteComponent implements OnInit {
   submit() {
 
     //upload image
-    //console.log(this.imgFile);
+    console.log(this.imgFile);
 
-    //this.imageService.uploadImage('Image', this.imgFile).subscribe(() => {
-    //  console.log('image enregistrée');
-    //},
-    //(error) => {
-    //  console.log(error);
-    //});
+    this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((response) => {
+      console.log('image enregistrée');
+      console.log(response);
+    },
+    (error) => {
+      console.log(error);
+    });
 
 
-    //create recette
+    //create recette [WORKING]
+    /*
     const recette: Recette = {
       id: 0,
       name: this.recetteForm.value.name,
@@ -180,6 +182,7 @@ export class CreateRecetteComponent implements OnInit {
     }), (error: any) => {
       console.log(error);
     };
+    */
 
     //create ingredients recette
     //create preparations recette

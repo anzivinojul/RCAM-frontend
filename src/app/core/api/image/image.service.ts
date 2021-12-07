@@ -11,13 +11,16 @@ export class ImageService {
     protected http: HttpClient,
   ) { }
 
-  uploadImage(name: string, file: File) {
+  uploadImage(name: string, file: any) {
 
     let formData = new FormData();
     formData.append('name', name);
     formData.append('image', file);
 
+    let headers = new Headers();
 
-    return this.http.post(`${environment.apiURL}/image/`, formData);
+    headers.append('Content-Type', 'multipart/form-data')
+
+    return this.http.post(`${environment.apiURL}/image/upload`, formData);
   }
 }

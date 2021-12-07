@@ -20,7 +20,7 @@
   <div class="list-recettes">
     <div class="card-recette" *ngFor="let recette of recettesInfos" (click)="this.goToRecette(recette.id)">
       <div class="img-recette">
-        <img src="{{ recette.img.image.full_size }}" alt="{{ recette.name }}">
+        <img src="{{ recette.img.image }}" alt="{{ recette.name }}">
       </div>
       <div class="content-recette">
         <div class="header-recette">
