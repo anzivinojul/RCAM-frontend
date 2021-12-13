@@ -69,5 +69,4 @@ export class SingleRecetteComponent implements OnInit {
       })
   }
 
-
 }

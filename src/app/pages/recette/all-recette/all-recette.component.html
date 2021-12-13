@@ -24,7 +24,10 @@
       </div>
       <div class="content-recette">
         <div class="header-recette">
-          <h2 class="name-recette"> {{ recette.name }} </h2>
+          <div class="name-recette">
+            <span class="text-name">{{ recette.name }}</span>
+            <span id="tooltip" class="tooltip-name-recette"> {{ recette.name }} </span>
+          </div>
         </div>
         <div class="informations-recette">
           <div class="time-recette">
