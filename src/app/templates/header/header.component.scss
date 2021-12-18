@@ -78,6 +78,11 @@ header {
   .right {
     display: flex;
     align-items: center;
+    gap: space(2);
+
+    #btn-text-smallWidth {
+      display: none;
+    }
   }
 }
 
@@ -85,7 +90,7 @@ header {
 @media screen and (max-width: $l) {
   .header {
     .left {
-      min-width: calc(100% - 122.3px - 16px);
+      min-width: calc(100% - 122.7px - 151.55px - 32px);
 
       .logo {
         margin-right: 0;
@@ -192,6 +197,33 @@ header {
       }
     }
   }
+
+@media screen and (max-width: $m) {
+
+  .header {
+
+    .left {
+      min-width: calc(100% - 100px - 32px);
+    }
+
+    .right {
+
+      #btn-text-smallWidth {
+        display: block;
+
+          i {
+            font-weight: 700;
+            font-size: 1em;
+          }
+      }
+
+      #btn-text-largeWidth {
+        display: none;
+      }
+    }
+  }
+
+}
 
 
 }

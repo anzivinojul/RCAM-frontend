@@ -7,6 +7,11 @@
   min-height: calc(100vh - 192px);
 }
 
+.is-admin {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .description-recette {
   display: flex;
   min-width: 100%;

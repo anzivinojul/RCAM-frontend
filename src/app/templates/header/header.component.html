@@ -22,12 +22,25 @@
 
     <div class="right">
 
+      <div class="is-admin">
+        <a routerLink="/create" class="btn">
+          <span id="btn-text-largeWidth">Créer une recette</span>
+          <span id="btn-text-smallWidth"><i class="ri-add-line"></i></span>
+        </a>
+      </div>
+
       <div class="not-login" *ngIf="!isLogged">
-        <a routerLink="/login" class="btn">Se connecter</a>
+        <a routerLink="/login" class="btn">
+          <span id="btn-text-largeWidth">Se connecter</span>
+          <span id="btn-text-smallWidth"><i class="ri-user-line"></i></span>
+        </a>
       </div>
 
       <div class="is-login" *ngIf="isLogged">
-        <button (click)="logout()" class="btn">Se déconnecter</button>
+        <button (click)="logout()" class="btn">
+          <span id="btn-text-largeWidth">Se déconnecter</span>
+          <span id="btn-text-smallWidth"><i class="ri-logout-box-line"></i></span>
+        </button>
       </div>
 
     </div>

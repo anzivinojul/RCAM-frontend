@@ -1,5 +1,9 @@
 <div class="single-recette">
 
+  <div class="is-admin">
+    <a [routerLink]="['/recette', recette.id, 'update']" class="btn">Modifier la recette</a>
+  </div>
+
   <div class="description-recette">
     <div class="img-recette">
       <img src="{{ recette.img.image }}" alt="{{ recette.name }}">

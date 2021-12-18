@@ -17,6 +17,7 @@ import { CreateRecetteComponent } from './pages/recette/create-recette/create-re
 import { SingleRecetteComponent } from './pages/recette/single-recette/single-recette.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { DigitOnlyDirective } from './directive/digit-only.directive';
+import { UpdateRecetteComponent } from './pages/recette/update-recette/update-recette.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DigitOnlyDirective } from './directive/digit-only.directive';
     SingleRecetteComponent,
     ErrorComponent,
     DigitOnlyDirective,
+    UpdateRecetteComponent,
   ],
   imports: [
     BrowserModule,
