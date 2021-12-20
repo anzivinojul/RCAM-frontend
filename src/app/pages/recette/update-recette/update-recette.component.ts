@@ -40,14 +40,19 @@ export class UpdateRecetteComponent implements OnInit {
   difficulties: Array<string> = new Array();
   difficultyRecette = '';
 
+  ingredientsPK!: number;
+  ingredientsOnInit: Array<string> = new Array();
   ingredients: Array<string> = new Array();
   ingredient!: string;
+  preparationsPK!: number;
+  preparationsOnInit: Array<string> = new Array();
   preparations: Array<string> = new Array();
   preparation!: string;
 
   imgURI!: string;
   img: any;
   imgFile = null;
+  imgUploaded = '';
 
   ngOnInit(): void {
     this.recette = <Recette>{};
@@ -90,7 +95,9 @@ export class UpdateRecetteComponent implements OnInit {
     await this.recetteService.findIngredientsByIdRecette(recette.id)
       .toPromise()
       .then((ingredients: any) => {
+        this.ingredientsPK = ingredients[0].id;
         this.ingredients = ingredients[0].ingredients.ingredients;
+        this.ingredientsOnInit = [...this.ingredients];
       })
       .catch((error) => {
         console.log(error);
@@ -101,7 +108,9 @@ export class UpdateRecetteComponent implements OnInit {
     await this.recetteService.findPreparationByIdRecette(recette.id)
       .toPromise()
       .then((preparations: any) => {
+        this.preparationsPK = preparations[0].id;
         this.preparations = preparations[0].preparations.preparations;
+        this.preparationsOnInit = [...this.preparations];
       })
       .catch((error) => {
         console.log(error);
@@ -230,7 +239,116 @@ export class UpdateRecetteComponent implements OnInit {
     return time.substring(3,5);
   }
 
+  compareRecettesEqual(recette: Recette): boolean {
+    if(this.recette.name == recette.name &&
+       this.recette.time_preparation == recette.time_preparation &&
+       this.recette.time_cooking == recette.time_cooking &&
+       this.recette.people_number == recette.people_number &&
+       this.recette.category.id == recette.category &&
+       this.recette.difficulty == recette.difficulty &&
+       this.recette.favorite == recette.favorite &&
+       this.recette.img.id == recette.img) {
+
+        return true;
+    }
+    else return false;
+  }
+
+  compareIngredientsEqual(ingredients: Array<string>): boolean {
+    if(JSON.stringify(ingredients) == JSON.stringify(this.ingredients)) {
+      return true;
+    }
+    else return false;
+  }
+
+  comparePreparationsEqual(preparations: Array<string>): boolean {
+    if(JSON.stringify(preparations) == JSON.stringify(this.preparations)) {
+      return true;
+    }
+    else return false;
+  }
+
   submit() {
+
+    const recette: Recette = {
+      id: this.recette.id,
+      name: this.recetteForm.value.name,
+      time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
+      time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
+      people_number: this.recetteForm.value.numberPeople,
+      category: this.categoryPK ? this.categoryPK : this.recette.category.id,
+      difficulty: this.difficultyRecette,
+      favorite: false,
+      img: this.recette.img.id,
+    }
+
+    if(this.imgURI != this.recette.img.image) {
+
+      this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
+        console.log('Image enregistrée');
+        recette.img = image.id;
+
+        //TODO: delete previous image
+        if(this.recette.img.id != 1) {
+          this.imageService.deleteImage(this.recette.img.id).subscribe(() => {
+            console.log('Ancienne image supprimée');
+          }), (error: any) => {
+            console.log(error);
+          }
+        }
+
+        if(!this.compareRecettesEqual(recette)) {
+
+          this.recetteService.updateRecette(recette).subscribe(() => {
+            console.log('Recette modifiée');
+          }), (error: any) => {
+            console.log(error);
+          }
+        }
+        else {
+          console.log(this.recette);
+          console.log(recette);
+
+
+          console.log('no change recette');
+
+        }
+
+      }), (error: any) => {
+        console.log(error);
+      }
+
+    } else {
+
+      if(!this.compareRecettesEqual(recette)) {
+
+        this.recetteService.updateRecette(recette).subscribe(() => {
+          console.log('Recette modifiée');
+        }), (error: any) => {
+          console.log(error);
+        }
+      }
+    }
+
+    if(!this.compareIngredientsEqual(this.ingredientsOnInit)) {
+
+      this.recetteService.updateIngredientsToRecette(this.formatJSONArray(this.ingredients, 'ingredients'), this.recette.id, this.ingredientsPK).subscribe(() => {
+        console.log('Ingrédients modifié(e)(s)');
+      }), (error: any) => {
+        console.log(error);
+      }
+    }
+
+    if(!this.comparePreparationsEqual(this.preparationsOnInit)) {
+
+      this.recetteService.updatePreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), this.recette.id, this.preparationsPK).subscribe(() => {
+        console.log('Préparations modifié(e)(s)');
+      }), (error: any) => {
+        console.log(error);
+      }
+    }
+
+    this.router.navigate(['/']);
 
   }
 

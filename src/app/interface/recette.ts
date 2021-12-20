@@ -6,7 +6,7 @@ export interface Recette {
   time_cooking: string,
   people_number: string,
   img: any,
-  category: string,
+  category: any,
   favorite: boolean,
   difficulty: string,
 

@@ -19,4 +19,10 @@ export class ImageService {
 
     return this.http.post(`${environment.apiURL}/image/add`, formData);
   }
+
+  deleteImage(imagePK: number) {
+
+    return this.http.delete(`${environment.apiURL}/image/delete/` + imagePK);
+
+  }
 }

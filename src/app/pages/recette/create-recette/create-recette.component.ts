@@ -171,11 +171,11 @@ export class CreateRecetteComponent implements OnInit {
       if(this.difficultyRecette != ''){
         if(this.imgFile != null) {
 
-          //upload image [WORKING]
+          //upload image
           this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
             console.log('Image enregistrée');
 
-            //create recette [WORKING]
+            //build recette
             const recette: Recette = {
               id: 0,
               name: this.recetteForm.value.name,
@@ -188,6 +188,7 @@ export class CreateRecetteComponent implements OnInit {
               img: image.id,
             }
 
+            //create recette
             this.recetteService.addRecette(recette).subscribe((recette: any) => {
               console.log('Recette enregistrée');
 
