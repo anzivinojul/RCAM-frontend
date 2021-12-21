@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/core/api/category/category.service';
 import { ImageService } from 'src/app/core/api/image/image.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
@@ -21,6 +22,7 @@ export class UpdateRecetteComponent implements OnInit {
     protected recetteService: RecetteService,
     private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService,
   ) { }
 
   recette!: Recette;
@@ -268,20 +270,19 @@ export class UpdateRecetteComponent implements OnInit {
     else return false;
   }
 
-  submit() {
+  verifyChanges(recette: Recette): boolean {
 
-    const recette: Recette = {
-      id: this.recette.id,
-      name: this.recetteForm.value.name,
-      time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
-      time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
-      people_number: this.recetteForm.value.numberPeople,
-      category: this.categoryPK ? this.categoryPK : this.recette.category.id,
-      difficulty: this.difficultyRecette,
-      favorite: false,
-      img: this.recette.img.id,
+    if(this.imgURI != this.recette.img.image ||
+      !this.compareRecettesEqual(recette) ||
+      !this.compareIngredientsEqual(this.ingredientsOnInit) ||
+      !this.comparePreparationsEqual(this.preparationsOnInit)) {
+
+      return true;
     }
+    else return false;
+  }
 
+  updateRecette(recette: Recette) {
     if(this.imgURI != this.recette.img.image) {
 
       this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
@@ -350,6 +351,32 @@ export class UpdateRecetteComponent implements OnInit {
 
     this.router.navigate(['/']);
 
+  }
+
+  submit() {
+    const recette: Recette = {
+      id: this.recette.id,
+      name: this.recetteForm.value.name,
+      time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
+      time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
+      people_number: this.recetteForm.value.numberPeople,
+      category: this.categoryPK ? this.categoryPK : this.recette.category.id,
+      difficulty: this.difficultyRecette,
+      favorite: false,
+      img: this.recette.img.id,
+    }
+
+    if(this.verifyChanges(recette)) {
+      this.updateRecette(recette);
+    }
+
+    else {
+      this.toastr.warning('Vous n\'avez effectué aucun changement', 'Modification impossible', {
+        timeOut: 4000,
+        tapToDismiss: true,
+        positionClass: 'toast-bottom-right'
+      });
+    }
   }
 
 }

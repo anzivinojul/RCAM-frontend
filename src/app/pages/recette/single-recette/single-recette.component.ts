@@ -76,8 +76,8 @@ export class SingleRecetteComponent implements OnInit {
 
   confirmDelete() {
     let disposable = this.simpleModalService.addModal(ModalComponent, {
-      title: 'Confirm title',
-      message: 'Confirm message'
+      title: 'Confirmation',
+      message: 'Voulez-vous vraiment supprimer la recette ?'
     })
     .subscribe((isConfirmed)=>{
         if(isConfirmed) {

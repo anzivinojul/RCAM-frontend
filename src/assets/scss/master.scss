@@ -14,5 +14,12 @@
 @import './components/container';
 @import './components/buttons';
 @import './components/forms';
+@import './components/toastr';
+
+// NGX-TOASTER
+
+@import '~ngx-toastr/toastr.css';
+
+// NGX-MODAL
 
 @import '../../../node_modules/ngx-simple-modal/styles/simple-modal.scss';

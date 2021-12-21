@@ -63,3 +63,16 @@ option {
   font-weight: 400;
 }
 
+textarea {
+  display: block;
+  width: 100%;
+  padding: space(1);
+  border: 1px solid $black;
+  border-radius: 4px;
+  background: transparent;
+  color: $black;
+  font-family: $font;
+  font-weight: 600;
+  margin-bottom: space(2);
+}
+

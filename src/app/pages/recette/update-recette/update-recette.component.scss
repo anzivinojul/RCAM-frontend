@@ -110,6 +110,7 @@
         flex-direction: column;
         align-items: center;
         gap: space(3);
+        padding: 0 space(1.5);
 
         .temps-preparation {
           display: flex;
@@ -188,7 +189,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 0 space(8);
+        padding: 0 space(1.5);
 
         .ingredients-recette-list {
           display: flex;
@@ -201,6 +202,14 @@
             margin-bottom: space(2);
             font-size: 0.9em;
             gap: space(2);
+
+            span {
+              padding-left: calc(29.95px + 16px);
+              display:block;
+              width: calc(100% - 29.95px - 16px);
+              text-align: center;
+              word-wrap:break-word;
+            }
 
             .btn {
               width: 29.95px;
@@ -224,6 +233,7 @@
         .ingredients-add {
           display: flex;
           min-width: 100%;
+          padding-left: calc(29.95px + 16px);
           gap: space(2);
 
           input {
@@ -270,7 +280,7 @@
         flex-direction: column;
         justify-content: center;
 
-        padding: 0 space(8);
+        padding: 0 space(1.5);
 
         .preparations-recette-list {
           display: flex;
@@ -283,6 +293,12 @@
             margin-bottom: space(2);
             font-size: 0.9em;
             gap: space(2);
+
+            span {
+              display:block;
+              width: calc(100% - 29.95px * 3 - 48px);
+              word-wrap:break-word;
+            }
 
             .btn-delete {
               width: 29.95px;
@@ -333,8 +349,8 @@
           min-width: 100%;
           gap: space(2);
 
-          input {
-            height: 32px;
+          textarea {
+            font-size: 0.9em;
             margin-bottom: 0px;
           }
 
@@ -366,3 +382,27 @@
     font-size: 1.1em;
   }
 }
+
+@media screen and (max-width: $xxl) {
+
+  .update-recette-informations {
+
+    .update-recette-content {
+      flex-direction: column;
+      gap: space(5);
+    }
+  }
+}
+
+@media screen and (max-width: $l) {
+
+  .update-recette-header {
+    flex-direction: column;
+    gap: space(5);
+
+    .update-recette-header-right {
+      align-self: center;
+    }
+  }
+}
+

@@ -20,12 +20,9 @@ export class ModalComponent extends SimpleModalComponent<ConfirmModel, boolean> 
    }
 
   ngOnInit(): void {
-    this.title = 'Confirmation de la suppression de la recette';
-    this.message = 'Voulez-vous vraiment supprimer la recette ?';
   }
 
   confirm() {
-    this.result = true;
     this.close();
   }
 
