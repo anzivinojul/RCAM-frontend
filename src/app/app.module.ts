@@ -10,7 +10,6 @@ import { LoginComponent } from './pages/login/login.component';
 
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 import { RequestInterceptor } from './core/interceptor/request.interceptor';
 import { AllRecetteComponent } from './pages/recette/all-recette/all-recette.component';
 import { CreateRecetteComponent } from './pages/recette/create-recette/create-recette.component';
@@ -18,18 +17,23 @@ import { SingleRecetteComponent } from './pages/recette/single-recette/single-re
 import { ErrorComponent } from './pages/error/error.component';
 import { DigitOnlyDirective } from './directive/digit-only.directive';
 import { UpdateRecetteComponent } from './pages/recette/update-recette/update-recette.component';
+import { ModalComponent } from './templates/modal/modal.component';
+
+import { ToastrModule } from 'ngx-toastr';
+import { defaultSimpleModalOptions, SimpleModalModule } from 'ngx-simple-modal';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    ModalComponent,
     LoginComponent,
     AllRecetteComponent,
     CreateRecetteComponent,
     SingleRecetteComponent,
+    UpdateRecetteComponent,
     ErrorComponent,
     DigitOnlyDirective,
-    UpdateRecetteComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,15 @@ import { UpdateRecetteComponent } from './pages/recette/update-recette/update-re
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+
+    //NGX-MODAL
+    //ModalComponent,
+    SimpleModalModule.forRoot({container: 'modal-container'}, {...defaultSimpleModalOptions, ...{
+      closeOnEscape: true,
+      closeOnClickOutside: true,
+      draggable: true,
+      animationDuration: 300,
+      autoFocus: true }}),
   ],
   providers: [
     {
@@ -50,6 +63,10 @@ import { UpdateRecetteComponent } from './pages/recette/update-recette/update-re
       multi: true
     }
   ],
+  entryComponents: [
+    ModalComponent,
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SimpleModalService } from 'ngx-simple-modal';
 import { AuthService } from 'src/app/core/api/auth/auth.service';
+import { ImageService } from 'src/app/core/api/image/image.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
 import { Ingredient } from 'src/app/interface/ingredient';
 import { Preparation } from 'src/app/interface/preparation';
 import { Recette } from 'src/app/interface/recette';
+import { ModalComponent } from 'src/app/templates/modal/modal.component';
 
 @Component({
   selector: 'app-single-recette',
@@ -18,6 +21,8 @@ export class SingleRecetteComponent implements OnInit {
     private router: Router,
     protected authService: AuthService,
     protected recetteService: RecetteService,
+    protected imageService: ImageService,
+    protected simpleModalService: SimpleModalService,
   ) { }
 
   recette!: Recette;
@@ -67,6 +72,26 @@ export class SingleRecetteComponent implements OnInit {
       .catch((error) => {
         console.log(error);
       })
+  }
+
+  confirmDelete() {
+    let disposable = this.simpleModalService.addModal(ModalComponent, {
+      title: 'Confirm title',
+      message: 'Confirm message'
+    })
+    .subscribe((isConfirmed)=>{
+        if(isConfirmed) {
+          this.recetteService.deleteRecette(this.recette.id).subscribe(() => {
+
+            this.imageService.deleteImage(this.recette.img.id).subscribe(() => {
+
+              this.router.navigate(['/']);
+
+            })
+          })
+        }
+    });
+
   }
 
 }

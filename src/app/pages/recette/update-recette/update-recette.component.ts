@@ -288,7 +288,7 @@ export class UpdateRecetteComponent implements OnInit {
         console.log('Image enregistrée');
         recette.img = image.id;
 
-        //TODO: delete previous image
+        //TODO: delete previous image from server
         if(this.recette.img.id != 1) {
           this.imageService.deleteImage(this.recette.img.id).subscribe(() => {
             console.log('Ancienne image supprimée');

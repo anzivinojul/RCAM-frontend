@@ -40,6 +40,10 @@ export class RecetteService {
     return this.http.put(`${environment.apiURL}/recettes/update/` + recette.id , recette);
   }
 
+  deleteRecette(recettePK: number) {
+    return this.http.delete(`${environment.apiURL}/recettes/delete/` + recettePK);
+  }
+
   addIngredientsToRecette(ingredientsJSON: string, recettePK: number) {
 
     let formData = new FormData();
