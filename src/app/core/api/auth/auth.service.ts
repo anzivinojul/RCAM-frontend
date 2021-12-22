@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Role } from 'src/app/interface/role';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,8 @@ export class AuthService {
     private toastr: ToastrService,
   ) { }
 
+  isAdmin!: boolean;
+
   async login(username: string, password: string) {
     await this.http.post(`${environment.apiURL}/auth/login/`, {
       username: username,
@@ -22,6 +26,7 @@ export class AuthService {
     })
       .toPromise()
       .then((auth: any) => {
+        console.log(auth);
         sessionStorage.setItem('jwt', auth.access);
         sessionStorage.setItem('jwt_refresh', auth.refresh);
         this.router.navigate(['/']);
@@ -56,6 +61,33 @@ export class AuthService {
       })
   }
 
+  getToken() {
+    return sessionStorage.getItem('jwt');
+  }
+
+  getDecodedToken(token: any) {
+    return jwt_decode(token);
+  }
+
+  getTokenExpirationDate(token: any): Date {
+    const decoded: any= jwt_decode(token);
+
+    if (decoded.exp === undefined) return new Date();
+
+    const date = new Date(0);
+    date.setUTCSeconds(decoded.exp);
+    return date;
+  }
+
+  isTokenExpired(token?: any): boolean {
+    if(!token) token = this.getToken();
+    if(!token) return true;
+
+    const date = this.getTokenExpirationDate(token);
+    if(date === undefined) return false;
+    return !(date.valueOf() > new Date().valueOf());
+  }
+
   async refreshJWT() {
     if(sessionStorage.getItem('jwt_refresh')) {
 
@@ -72,9 +104,14 @@ export class AuthService {
     return sessionStorage.getItem('jwt') ? true : false;
   }
 
+  getUser() {
+    return this.http.get(`${environment.apiURL}/auth/user`);
+  }
+
   logout() {
     sessionStorage.removeItem('jwt');
     sessionStorage.removeItem('jwt_refresh');
+    sessionStorage.removeItem('username')
     location.reload();
   }
 
