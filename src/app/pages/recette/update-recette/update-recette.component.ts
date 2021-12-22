@@ -105,7 +105,7 @@ export class UpdateRecetteComponent implements OnInit {
         this.ingredientsOnInit = [...this.ingredients];
       })
       .catch((error) => {
-        console.log(error);
+        this.router.navigate(['/404']);
       })
   }
 
@@ -118,7 +118,7 @@ export class UpdateRecetteComponent implements OnInit {
         this.preparationsOnInit = [...this.preparations];
       })
       .catch((error) => {
-        console.log(error);
+        this.router.navigate(['/404']);
       })
   }
 
@@ -127,7 +127,9 @@ export class UpdateRecetteComponent implements OnInit {
       .toPromise()
       .then((categories: any) => {
         this.categories = categories;
-      })
+      }), (error:any) => {
+        this.router.navigate(['/404']);
+      }
   }
 
   getPKCategory(name: string) {
@@ -289,13 +291,12 @@ export class UpdateRecetteComponent implements OnInit {
     if(this.imgURI != this.recette.img.image) {
 
       this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
-        console.log('Image enregistrée');
+
         recette.img = image.id;
 
         //TODO: delete previous image from server
         if(this.recette.img.id != 1) {
           this.imageService.deleteImage(this.recette.img.id).subscribe(() => {
-            console.log('Ancienne image supprimée');
           }), (error: any) => {
             console.log(error);
           }
@@ -304,22 +305,20 @@ export class UpdateRecetteComponent implements OnInit {
         if(!this.compareRecettesEqual(recette)) {
 
           this.recetteService.updateRecette(recette).subscribe(() => {
-            console.log('Recette modifiée');
           }), (error: any) => {
-            console.log(error);
+            this.toastr.error('Modification des informations de la recette échouées', 'Modification échoué', {
+              timeOut: 6000,
+              tapToDismiss: true,
+              positionClass: 'toast-bottom-right'
+            });
           }
         }
-        else {
-          console.log(this.recette);
-          console.log(recette);
-
-
-          console.log('no change recette');
-
-        }
-
       }), (error: any) => {
-        console.log(error);
+        this.toastr.error('Modification de l\'image de la recette échouée', 'Modification échoué', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
       }
 
     } else {
@@ -327,9 +326,12 @@ export class UpdateRecetteComponent implements OnInit {
       if(!this.compareRecettesEqual(recette)) {
 
         this.recetteService.updateRecette(recette).subscribe(() => {
-          console.log('Recette modifiée');
         }), (error: any) => {
-          console.log(error);
+          this.toastr.error('Modification des informations de la recette échouées', 'Modification échoué', {
+            timeOut: 6000,
+            tapToDismiss: true,
+            positionClass: 'toast-bottom-right'
+          });
         }
       }
     }
@@ -337,18 +339,24 @@ export class UpdateRecetteComponent implements OnInit {
     if(!this.compareIngredientsEqual(this.ingredientsOnInit)) {
 
       this.recetteService.updateIngredientsToRecette(this.formatJSONArray(this.ingredients, 'ingredients'), this.recette.id, this.ingredientsPK).subscribe(() => {
-        console.log('Ingrédients modifié(e)(s)');
       }), (error: any) => {
-        console.log(error);
+        this.toastr.error('Modification des ingrédients de la recette échouées', 'Modification échoué', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
       }
     }
 
     if(!this.comparePreparationsEqual(this.preparationsOnInit)) {
 
       this.recetteService.updatePreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), this.recette.id, this.preparationsPK).subscribe(() => {
-        console.log('Préparations modifié(e)(s)');
       }), (error: any) => {
-        console.log(error);
+        this.toastr.error('Modification des préparations de la recette échouées', 'Modification échoué', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
       }
     }
 
@@ -376,6 +384,11 @@ export class UpdateRecetteComponent implements OnInit {
       .subscribe((isConfirmed)=>{
           if(isConfirmed) {
             this.updateRecette(recette).then(() => {
+              this.toastr.success('Modification de de la recette réussie', 'Modification réussie', {
+                timeOut: 6000,
+                tapToDismiss: true,
+                positionClass: 'toast-bottom-right'
+              });
               this.router.navigate(['/']);
             })
           }
