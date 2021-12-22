@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SimpleModalService } from 'ngx-simple-modal';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/api/auth/auth.service';
 import { ImageService } from 'src/app/core/api/image/image.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
@@ -22,6 +23,7 @@ export class SingleRecetteComponent implements OnInit {
     protected authService: AuthService,
     protected recetteService: RecetteService,
     protected imageService: ImageService,
+    private toastr: ToastrService,
     protected simpleModalService: SimpleModalService,
   ) { }
 
@@ -59,7 +61,7 @@ export class SingleRecetteComponent implements OnInit {
         this.ingredients = ingredients[0].ingredients.ingredients;
       })
       .catch((error) => {
-        console.log(error);
+        this.router.navigate(['/404']);
       })
   }
 
@@ -70,7 +72,7 @@ export class SingleRecetteComponent implements OnInit {
         this.preparations = preparations[0].preparations.preparations;
       })
       .catch((error) => {
-        console.log(error);
+        this.router.navigate(['/404']);
       })
   }
 
@@ -84,15 +86,29 @@ export class SingleRecetteComponent implements OnInit {
 
           this.recetteService.deleteRecette(this.recette.id).subscribe(() => {
 
+            this.toastr.success('Suppression de la recette réussie', 'Suppression réussie', {
+              timeOut: 6000,
+              tapToDismiss: true,
+              positionClass: 'toast-bottom-right'
+            });
+
             this.imageService.deleteImage(this.recette.img.id).subscribe(() => {
 
               this.router.navigate(['/']);
 
             }), (error:any) => {
-              console.log(error);
+              this.toastr.error('Suppression de l\'image de la recette échouée', 'Suppression échouée', {
+                timeOut: 6000,
+                tapToDismiss: true,
+                positionClass: 'toast-bottom-right'
+              });
             }
           }), (error:any) => {
-            console.log(error);
+            this.toastr.error('Suppression de la recette échouée', 'Suppression échouée', {
+              timeOut: 6000,
+              tapToDismiss: true,
+              positionClass: 'toast-bottom-right'
+            });
           }
         }
     });

@@ -173,7 +173,6 @@ export class CreateRecetteComponent implements OnInit {
 
           //upload image
           this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
-            console.log('Image enregistrée');
 
             //build recette
             const recette: Recette = {
@@ -190,15 +189,12 @@ export class CreateRecetteComponent implements OnInit {
 
             //create recette
             this.recetteService.addRecette(recette).subscribe((recette: any) => {
-              console.log('Recette enregistrée');
 
               //create ingredients recette
               this.recetteService.addIngredientsToRecette(this.formatJSONArray(this.ingredients, 'ingredients'), recette.id).subscribe((ingredient: any) => {
-                console.log('Ingrédient(s) enregitré(e)(s)');
 
                 //create preparations recette
                 this.recetteService.addPreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), recette.id).subscribe((preparations)=> {
-                  console.log('Préparation(s) réussi(e)(s)');
                   this.router.navigate(['/']);
 
                 }), (error: any) => {
