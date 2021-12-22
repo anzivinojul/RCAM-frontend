@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/core/api/category/category.service';
 import { ImageService } from 'src/app/core/api/image/image.service';
 import { RecetteService } from 'src/app/core/api/recette/recette.service';
@@ -20,6 +21,7 @@ export class CreateRecetteComponent implements OnInit {
     protected imageService: ImageService,
     protected recetteService: RecetteService,
     private router: Router,
+    private toastr: ToastrService,
   ) { }
 
   recetteForm = new FormGroup({
@@ -68,7 +70,7 @@ export class CreateRecetteComponent implements OnInit {
         this.categoryPK = '';
       }
     }), (error: any) => {
-      console.log(error);
+      this.router.navigate(['/404']);
     }
   }
 
@@ -165,54 +167,95 @@ export class CreateRecetteComponent implements OnInit {
     return '{"' + name + '":' + JSON.stringify(array) + '}';
   }
 
+  verifyForm(): boolean {
+    if(this.recetteForm.valid &&
+       this.categoryPK != '' &&
+       this.difficultyRecette != '' &&
+       this.imgURI != null &&
+       this.ingredients.length != 0 &&
+       this.preparations.length != 0) {
+      return true;
+    }
+    else return false;
+  }
+
+  async addRecette() {
+    //upload image
+    this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
+
+      //build recette
+      const recette: Recette = {
+        id: 0,
+        name: this.recetteForm.value.name,
+        time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
+        time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
+        people_number: this.recetteForm.value.numberPeople,
+        category: this.categoryPK,
+        difficulty: this.difficultyRecette,
+        favorite: false,
+        img: image.id,
+      }
+
+      //create recette
+      this.recetteService.addRecette(recette).subscribe((recette: any) => {
+
+        //create ingredients recette
+        this.recetteService.addIngredientsToRecette(this.formatJSONArray(this.ingredients, 'ingredients'), recette.id).subscribe((ingredient: any) => {
+
+          //create preparations recette
+          this.recetteService.addPreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), recette.id).subscribe((preparations)=> {
+
+          }), (error: any) => {
+            this.toastr.error('Ajout de la préparation de la recette échoué', 'Ajout échoué', {
+              timeOut: 6000,
+              tapToDismiss: true,
+              positionClass: 'toast-bottom-right'
+            });
+          }
+        }), (error: any) => {
+          this.toastr.error('Ajout des ingrédients de la recette échoué', 'Ajout échoué', {
+            timeOut: 6000,
+            tapToDismiss: true,
+            positionClass: 'toast-bottom-right'
+          });
+        }
+      }), (error: any) => {
+        this.toastr.error('Ajout des informations de la recette échoué', 'Ajout échoué', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
+      };
+    }), (error: any) => {
+      this.toastr.error('Ajout de l\'image de la recette échoué', 'Ajout échoué', {
+            timeOut: 6000,
+            tapToDismiss: true,
+            positionClass: 'toast-bottom-right'
+      });
+    };
+  }
+
   submit() {
 
-    if(this.categoryPK != '') {
-      if(this.difficultyRecette != ''){
-        if(this.imgFile != null) {
+    if(this.verifyForm()) {
 
-          //upload image
-          this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
+      this.addRecette().then(() => {
+        this.toastr.success('Ajout de de la recette réussi', 'Ajout réussi', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
+        this.router.navigate(['/']);
+      })
 
-            //build recette
-            const recette: Recette = {
-              id: 0,
-              name: this.recetteForm.value.name,
-              time_preparation: this.formatTime(this.recetteForm.value.timePreparationHour, this.recetteForm.value.timePreparationMin),
-              time_cooking: this.formatTime(this.recetteForm.value.timeCookingHour, this.recetteForm.value.timeCookingMin),
-              people_number: this.recetteForm.value.numberPeople,
-              category: this.categoryPK,
-              difficulty: this.difficultyRecette,
-              favorite: false,
-              img: image.id,
-            }
+    }
 
-            //create recette
-            this.recetteService.addRecette(recette).subscribe((recette: any) => {
-
-              //create ingredients recette
-              this.recetteService.addIngredientsToRecette(this.formatJSONArray(this.ingredients, 'ingredients'), recette.id).subscribe((ingredient: any) => {
-
-                //create preparations recette
-                this.recetteService.addPreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), recette.id).subscribe((preparations)=> {
-                  this.router.navigate(['/']);
-
-                }), (error: any) => {
-                  console.log(error);
-                }
-              }), (error: any) => {
-                console.log(error);
-              }
-            }), (error: any) => {
-              console.log(error);
-            };
-          },
-          (error) => {
-            console.log(error);
-          });
-
-        }
-      }
+    else {
+      this.toastr.warning('Il manque des informations pour pouvoir ajouter la recette', 'Ajout impossible', {
+        timeOut: 6000,
+        tapToDismiss: true,
+        positionClass: 'toast-bottom-right'
+      });
     }
 
   }

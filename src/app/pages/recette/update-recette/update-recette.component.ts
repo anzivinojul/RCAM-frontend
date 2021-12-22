@@ -287,6 +287,18 @@ export class UpdateRecetteComponent implements OnInit {
     else return false;
   }
 
+  verifyForm(): boolean {
+    if(this.recetteForm.valid &&
+       (this.categoryPK != '' || this.categoryRecette) &&
+       this.difficultyRecette != '' &&
+       this.imgURI != null &&
+       this.ingredients.length != 0 &&
+       this.preparations.length != 0) {
+      return true;
+    }
+    else return false;
+  }
+
   async updateRecette(recette: Recette) {
     if(this.imgURI != this.recette.img.image) {
 
@@ -375,28 +387,39 @@ export class UpdateRecetteComponent implements OnInit {
       img: this.recette.img.id,
     }
 
-    if(this.verifyChanges(recette)) {
+    if(this.verifyForm()) {
 
-      let disposable = this.simpleModalService.addModal(ModalComponent, {
-        title: 'Confirmation',
-        message: 'Voulez-vous vraiment modifier la recette ?'
-      })
-      .subscribe((isConfirmed)=>{
-          if(isConfirmed) {
-            this.updateRecette(recette).then(() => {
-              this.toastr.success('Modification de de la recette réussie', 'Modification réussie', {
-                timeOut: 6000,
-                tapToDismiss: true,
-                positionClass: 'toast-bottom-right'
-              });
-              this.router.navigate(['/']);
-            })
-          }
+      if(this.verifyChanges(recette)) {
+
+        let disposable = this.simpleModalService.addModal(ModalComponent, {
+          title: 'Confirmation',
+          message: 'Voulez-vous vraiment modifier la recette ?'
         })
+        .subscribe((isConfirmed)=>{
+            if(isConfirmed) {
+              this.updateRecette(recette).then(() => {
+                this.toastr.success('Modification de de la recette réussie', 'Modification réussie', {
+                  timeOut: 6000,
+                  tapToDismiss: true,
+                  positionClass: 'toast-bottom-right'
+                });
+                this.router.navigate(['/']);
+              })
+            }
+          })
+      }
+
+      else {
+        this.toastr.warning('Vous n\'avez effectué aucun changement', 'Modification impossible', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
+      }
     }
 
     else {
-      this.toastr.warning('Vous n\'avez effectué aucun changement', 'Modification impossible', {
+      this.toastr.warning('Il manque des informations pour pouvoir modifier la recette', 'Modification impossible', {
         timeOut: 6000,
         tapToDismiss: true,
         positionClass: 'toast-bottom-right'
