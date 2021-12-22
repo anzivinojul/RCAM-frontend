@@ -166,7 +166,6 @@
 
       .preparation-list {
         display: flex;
-        align-items: center;
         gap: space(2);
 
         #preparation-list-number {
@@ -260,8 +259,8 @@
     .description-recette {
       .img-recette {
         img {
-          width: 300px;
-          height: 201px;
+          width: 350px;
+          height: 234px;
         }
       }
     }
@@ -271,8 +270,8 @@
     .description-recette {
       .img-recette {
         img {
-          width: 200px;
-          height: 134px;
+          width: 300px;
+          height: 201px;
         }
       }
     }

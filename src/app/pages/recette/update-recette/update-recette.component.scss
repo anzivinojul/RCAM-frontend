@@ -110,7 +110,7 @@
         flex-direction: column;
         align-items: center;
         gap: space(3);
-        padding: 0 space(1.5);
+        padding: 0 space(4);
 
         .temps-preparation {
           display: flex;
@@ -189,7 +189,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 0 space(1.5);
+        padding: 0 space(4);
 
         .ingredients-recette-list {
           display: flex;
@@ -280,7 +280,7 @@
         flex-direction: column;
         justify-content: center;
 
-        padding: 0 space(1.5);
+        padding: 0 space(4);
 
         .preparations-recette-list {
           display: flex;
@@ -347,6 +347,7 @@
           display: flex;
           align-items: center;
           min-width: 100%;
+          font-size: 0.9em;
           gap: space(2);
 
           textarea {
@@ -404,5 +405,24 @@
       align-self: center;
     }
   }
+}
+
+@media screen and (max-width: $m) {
+  .update-recette-header {
+    .update-recette-header-right {
+      width: 350px;
+      height: 234px;
+    }
+  }
+}
+
+@media screen and (max-width: $s) {
+  .update-recette-header {
+    .update-recette-header-right {
+      width: 300px;
+      height: 201px;
+    }
+  }
+
 }
 

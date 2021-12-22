@@ -2,14 +2,15 @@
 
 .modal-content {
   background-color: $background;
+  border: 2px solid $black;
 
   .modal-header {
     font-size: 1.3em;
     font-weight: 900;
-    border-bottom: 1px solid lighten($background, 20%);
+    border-bottom: 1.5px solid lighten($black, 5%);
   }
 
   .modal-footer {
-    border-top: 1px solid lighten($background, 20%);
+    border-top: 1.5px solid lighten($black, 5%);
   }
 }

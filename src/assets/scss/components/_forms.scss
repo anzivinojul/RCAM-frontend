@@ -74,5 +74,10 @@ textarea {
   font-family: $font;
   font-weight: 600;
   margin-bottom: space(2);
+
+  &:focus {
+    border: 1px solid lighten($black, 10%);
+    outline: 1px solid lighten($black, 10%);
+  }
 }
 

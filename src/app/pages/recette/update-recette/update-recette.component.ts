@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SimpleModalService } from 'ngx-simple-modal';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from 'src/app/core/api/category/category.service';
 import { ImageService } from 'src/app/core/api/image/image.service';
@@ -8,6 +9,7 @@ import { RecetteService } from 'src/app/core/api/recette/recette.service';
 import { Category } from 'src/app/interface/category';
 import { DifficultyType } from 'src/app/interface/difficulty';
 import { Recette } from 'src/app/interface/recette';
+import { ModalComponent } from 'src/app/templates/modal/modal.component';
 
 @Component({
   selector: 'app-update-recette',
@@ -23,6 +25,7 @@ export class UpdateRecetteComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
+    protected simpleModalService: SimpleModalService,
   ) { }
 
   recette!: Recette;
@@ -282,7 +285,7 @@ export class UpdateRecetteComponent implements OnInit {
     else return false;
   }
 
-  updateRecette(recette: Recette) {
+  async updateRecette(recette: Recette) {
     if(this.imgURI != this.recette.img.image) {
 
       this.imageService.uploadImage(this.recetteForm.value.name, this.imgFile).subscribe((image: any) => {
@@ -349,8 +352,6 @@ export class UpdateRecetteComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['/']);
-
   }
 
   submit() {
@@ -367,12 +368,23 @@ export class UpdateRecetteComponent implements OnInit {
     }
 
     if(this.verifyChanges(recette)) {
-      this.updateRecette(recette);
+
+      let disposable = this.simpleModalService.addModal(ModalComponent, {
+        title: 'Confirmation',
+        message: 'Voulez-vous vraiment modifier la recette ?'
+      })
+      .subscribe((isConfirmed)=>{
+          if(isConfirmed) {
+            this.updateRecette(recette).then(() => {
+              this.router.navigate(['/']);
+            })
+          }
+        })
     }
 
     else {
       this.toastr.warning('Vous n\'avez effectué aucun changement', 'Modification impossible', {
-        timeOut: 4000,
+        timeOut: 6000,
         tapToDismiss: true,
         positionClass: 'toast-bottom-right'
       });

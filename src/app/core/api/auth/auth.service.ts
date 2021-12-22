@@ -29,7 +29,11 @@ export class AuthService {
       })
       .catch((error) => {
         console.log(error);
-        this.toastr.error('Identifiants incorrects', 'Erreur');
+        this.toastr.error('Identifiants incorrects', 'Erreur', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
       })
   }
 
