@@ -23,6 +23,7 @@ export class ModalComponent extends SimpleModalComponent<ConfirmModel, boolean> 
   }
 
   confirm() {
+    this.result = true;
     this.close();
   }
 

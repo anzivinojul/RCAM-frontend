@@ -47,7 +47,7 @@ import { defaultSimpleModalOptions, SimpleModalModule } from 'ngx-simple-modal';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
 
-    //NGX-MODAL
+    //NGX-SIMPLE-MODAL
     //ModalComponent,
     SimpleModalModule.forRoot({container: 'modal-container'}, {...defaultSimpleModalOptions, ...{
       closeOnEscape: true,

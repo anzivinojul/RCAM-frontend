@@ -81,14 +81,19 @@ export class SingleRecetteComponent implements OnInit {
     })
     .subscribe((isConfirmed)=>{
         if(isConfirmed) {
+
           this.recetteService.deleteRecette(this.recette.id).subscribe(() => {
 
             this.imageService.deleteImage(this.recette.img.id).subscribe(() => {
 
               this.router.navigate(['/']);
 
-            })
-          })
+            }), (error:any) => {
+              console.log(error);
+            }
+          }), (error:any) => {
+            console.log(error);
+          }
         }
     });
 
