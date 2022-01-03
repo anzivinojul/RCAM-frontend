@@ -7,50 +7,150 @@ import {
   HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { map, catchError, switchMap, filter, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../api/auth/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
+  private refreshTokenInProgress = false;
+  private refreshTokenSubject: Subject<any> = new BehaviorSubject<any>(null);
+
   constructor(
-    private toastr: ToastrService,
     private router: Router,
     protected auth: AuthService,
   ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if(!(request.url == `${environment.apiURL}/auth/login/refresh/`)) {
-      this.auth.refreshJWT();
+    if (request.url.indexOf('refresh') !== -1) {
+      return next.handle(request);
     }
 
-    const token: string | null = sessionStorage.getItem('jwt');
+    const accessExpired = this.auth.isTokenExpired();
 
-    if (token) {
-        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+    if(this.auth.checkAuth()) {
+
+      if(accessExpired) {
+        if (!this.refreshTokenInProgress) {
+
+          this.refreshTokenInProgress = true;
+          this.refreshTokenSubject.next(null);
+          return this.auth.refreshJWT().pipe(
+              switchMap((auth: any) => {
+                  sessionStorage.setItem('jwt', auth.access);
+                  this.refreshTokenInProgress = false;
+                  this.refreshTokenSubject.next(auth.refresh);
+
+                  request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + this.auth.getToken()) });
+                  request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+                  return next.handle(request);
+              }),
+          );
+        }
+        else {
+
+          return this.refreshTokenSubject.pipe(
+              filter(result => result !== null),
+              take(1),
+              switchMap((res) => {
+                  request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + this.auth.getToken()) });
+                  request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+                  return next.handle(request)
+              })
+          );
+        }
+      }
+
+      else {
+        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + this.auth.getToken()) });
+        request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+        return next.handle(request);
+      }
     }
 
-    //TODO : fix this problem
-    /*
-    if (!request.headers.has('Content-Type')) {
-        request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    else {
+      request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+      return next.handle(request);
     }
-    */
 
-    request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
-    return next.handle(request).pipe(
+  /*
+
+    if (request.url.indexOf('refresh') !== -1) {
+      return next.handle(request).pipe(
         map((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
                 //console.log('event--->>>', event);
             }
             return event;
         }));
-}
+    }
 
+    if (this.auth.checkAuth()) {
+
+        if(this.auth.isTokenExpired(this.auth.getToken())) {
+          const refresh =  this.auth.refreshJWT();
+
+          refresh.then(() => {
+            request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + this.auth.getToken()) });
+            request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+
+            return next.handle(request).pipe(
+              map((event: HttpEvent<any>) => {
+                  if (event instanceof HttpResponse) {
+                      //console.log('event--->>>', event);
+                  }
+                  return event;
+              }));
+          }), (error: any) => {
+            return next.handle(request).pipe(
+              map((event: HttpEvent<any>) => {
+                  if (event instanceof HttpResponse) {
+                      //console.log('event--->>>', event);
+                  }
+                  return event;
+              }));
+          }
+
+          return next.handle(request).pipe(
+            map((event: HttpEvent<any>) => {
+                if (event instanceof HttpResponse) {
+                    //console.log('event--->>>', event);
+                }
+                return event;
+            }));
+
+        }
+
+        else {
+          request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + this.auth.getToken()) });
+          request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+
+          return next.handle(request).pipe(
+            map((event: HttpEvent<any>) => {
+                if (event instanceof HttpResponse) {
+                    //console.log('event--->>>', event);
+                }
+                return event;
+            }));
+        }
+      }
+
+      else {
+        request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+
+        return next.handle(request).pipe(
+          map((event: HttpEvent<any>) => {
+              if (event instanceof HttpResponse) {
+                  //console.log('event--->>>', event);
+              }
+              return event;
+          }));
+      }
+ */
+  }
 }

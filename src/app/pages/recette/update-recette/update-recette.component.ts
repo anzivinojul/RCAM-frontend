@@ -32,11 +32,11 @@ export class UpdateRecetteComponent implements OnInit {
 
   recetteForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    numberPeople: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timePreparationHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timePreparationMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timeCookingHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timeCookingMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
+    numberPeople: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timePreparationHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timePreparationMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timeCookingHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timeCookingMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
   });
 
   categories!: Array<Category>;
@@ -288,6 +288,9 @@ export class UpdateRecetteComponent implements OnInit {
   }
 
   verifyForm(): boolean {
+    console.log(this.recetteForm);
+
+
     if(this.recetteForm.valid &&
        (this.categoryPK != '' || this.categoryRecette) &&
        this.difficultyRecette != '' &&

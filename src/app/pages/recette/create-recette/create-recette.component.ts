@@ -26,11 +26,11 @@ export class CreateRecetteComponent implements OnInit {
 
   recetteForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    numberPeople: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timePreparationHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timePreparationMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timeCookingHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
-    timeCookingMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('[\d]*')]),
+    numberPeople: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timePreparationHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timePreparationMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timeCookingHour: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+    timeCookingMin: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
   });
 
   categories!: Array<Category>;
@@ -205,6 +205,8 @@ export class CreateRecetteComponent implements OnInit {
           //create preparations recette
           this.recetteService.addPreparationsToRecette(this.formatJSONArray(this.preparations, 'preparations'), recette.id).subscribe((preparations)=> {
 
+            this.router.navigate(['/']);
+
           }), (error: any) => {
             this.toastr.error('Ajout de la préparation de la recette échoué', 'Ajout échoué', {
               timeOut: 6000,
@@ -245,7 +247,6 @@ export class CreateRecetteComponent implements OnInit {
           tapToDismiss: true,
           positionClass: 'toast-bottom-right'
         });
-        this.router.navigate(['/']);
       })
 
     }

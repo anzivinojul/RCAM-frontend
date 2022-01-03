@@ -88,16 +88,8 @@ export class AuthService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  async refreshJWT() {
-    if(sessionStorage.getItem('jwt_refresh')) {
-
-      await this.http.post(`${environment.apiURL}/auth/login/refresh/`, {"refresh": sessionStorage.getItem('jwt_refresh')})
-      .toPromise()
-      .then((auth: any) => {
-        sessionStorage.setItem('jwt', auth.access);
-      });
-
-    }
+  refreshJWT() {
+    return this.http.post(`${environment.apiURL}/auth/login/refresh/`, {"refresh": sessionStorage.getItem('jwt_refresh')})
   }
 
   checkAuth(): boolean {

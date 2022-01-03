@@ -22,7 +22,7 @@
 
     <div class="right">
 
-      <div class="is-admin">
+      <div class="is-admin" *ngIf="isAdmin">
         <a routerLink="/create" class="btn">
           <span id="btn-text-largeWidth">Créer une recette</span>
           <span id="btn-text-smallWidth"><i class="ri-add-line"></i></span>

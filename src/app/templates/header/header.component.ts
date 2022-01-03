@@ -25,10 +25,12 @@ export class HeaderComponent implements OnInit {
   }
 
   checkAdmin() {
-    this.auth.getUser().subscribe((user: any) => {
-      this.isAdmin = user.groups[0] == 1 ? true : false;
-    }), (error: any) => {
-      this.isAdmin = false;
+    if(this.isLogged) {
+      this.auth.getUser().subscribe((user: any) => {
+        this.isAdmin = user.groups[0] == 1 ? true : false;
+      }), (error: any) => {
+        this.isAdmin = false;
+      }
     }
   }
 
@@ -49,10 +51,9 @@ export class HeaderComponent implements OnInit {
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/']);
 
-    console.log(this.auth.isTokenExpired())
+    console.log('logged : ' + this.isLogged)
+    console.log('admin : ' + this.isAdmin);
     console.log(this.auth.getTokenExpirationDate(this.auth.getToken()));
-    console.log(this.auth.getDecodedToken(this.auth.getToken()));
-
 
   }
 
