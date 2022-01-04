@@ -1,0 +1,38 @@
+.btn {
+  cursor: pointer;
+  font-family: $font;
+  font-weight: 600;
+  font-size: 1em;
+  border: 1px solid $black;
+  display: inline-flex;
+  height: 40px;
+  padding: 0 space(2);
+  border-radius: 4px;
+  align-items: center;
+  color: $white;
+  background-color: $black;
+  transition: .4s;
+
+  &:hover {
+    background-color: lighten($black, 25%);
+  }
+}
+
+.btn-border {
+  border: 1px solid $black;
+  color: $black;
+  background: transparent;
+
+  &:hover {
+    background: lighten(gray, 40%);
+    border: 1px solid $black;
+  }
+}
+
+.btn-icon {
+  i {
+    font-size: 1em;
+    padding-top: space(0.25);
+    padding-right: space(2);
+  }
+}
