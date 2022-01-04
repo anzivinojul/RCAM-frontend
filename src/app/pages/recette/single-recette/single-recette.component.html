@@ -1,6 +1,6 @@
 <div class="single-recette">
 
-  <div class="is-admin">
+  <div class="is-admin" *ngIf="isAdmin">
     <button class="btn" (click)="confirmDelete()">Supprimer la recette</button>
     <a [routerLink]="['/recette', recette.id, 'update']" class="btn">Modifier la recette</a>
   </div>

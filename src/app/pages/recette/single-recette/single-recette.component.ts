@@ -20,12 +20,15 @@ export class SingleRecetteComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    protected authService: AuthService,
+    protected auth: AuthService,
     protected recetteService: RecetteService,
     protected imageService: ImageService,
     private toastr: ToastrService,
     protected simpleModalService: SimpleModalService,
   ) { }
+
+  isLogged!: boolean;
+  isAdmin!: boolean;
 
   recette!: Recette;
   ingredients!: Array<String>;
@@ -34,6 +37,18 @@ export class SingleRecetteComponent implements OnInit {
   ngOnInit(): void {
     this.recette = <Recette>{};
     this.getRecette();
+    this.isLogged = this.auth.checkAuth();
+    this.checkAdmin();
+  }
+
+  checkAdmin() {
+    if(this.isLogged) {
+      this.auth.getUser().subscribe((user: any) => {
+        this.isAdmin = user.groups[0] == 1 ? true : false;
+      }), (error: any) => {
+        this.isAdmin = false;
+      }
+    }
   }
 
   async getRecette() {
