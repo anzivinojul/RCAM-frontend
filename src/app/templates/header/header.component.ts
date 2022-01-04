@@ -50,11 +50,6 @@ export class HeaderComponent implements OnInit {
     }
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/']);
-
-    console.log('logged : ' + this.isLogged)
-    console.log('admin : ' + this.isAdmin);
-    console.log(this.auth.getTokenExpirationDate(this.auth.getToken()));
-
   }
 
   logout() {

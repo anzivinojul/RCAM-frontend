@@ -26,14 +26,12 @@ export class AuthService {
     })
       .toPromise()
       .then((auth: any) => {
-        console.log(auth);
         sessionStorage.setItem('jwt', auth.access);
         sessionStorage.setItem('jwt_refresh', auth.refresh);
         this.router.navigate(['/']);
         location.reload();
       })
       .catch((error) => {
-        console.log(error);
         this.toastr.error('Identifiants incorrects', 'Erreur', {
           timeOut: 6000,
           tapToDismiss: true,
@@ -51,13 +49,16 @@ export class AuthService {
     })
       .toPromise()
       .then((auth: any) => {
-        console.log('Inscription réussie : ' + auth);
         this.login(username, password).then(() => {
           this.router.navigate(['/']);
         })
       })
       .catch((error) => {
-        console.log(error);
+        this.toastr.error('Echec de l\'inscription', 'Erreur', {
+          timeOut: 6000,
+          tapToDismiss: true,
+          positionClass: 'toast-bottom-right'
+        });
       })
   }
 
