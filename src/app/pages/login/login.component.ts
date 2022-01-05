@@ -47,7 +47,10 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Veuillez vérifier votre not d\'/utilisateur ou mot de passe';
     }
     else {
-      await this.auth.login(this.loginForm.value.username, this.loginForm.value.password);
+      await this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
+      .then(() => {
+        location.reload();
+      });
     }
   }
 

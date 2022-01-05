@@ -90,7 +90,7 @@ header {
 @media screen and (max-width: $l) {
   .header {
     .left {
-      min-width: calc(100% - 122.7px - 151.55px - 32px);
+      min-width: calc(100% - auto - 32px);
 
       .logo {
         margin-right: 0;
@@ -112,7 +112,7 @@ header {
           z-index: 1;
 
           label {
-            width: 80px;
+            width: 60px;
             height: 100%;
             display: flex;
             justify-content: center;

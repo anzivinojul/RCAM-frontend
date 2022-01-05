@@ -29,7 +29,6 @@ export class AuthService {
         sessionStorage.setItem('jwt', auth.access);
         sessionStorage.setItem('jwt_refresh', auth.refresh);
         this.router.navigate(['/']);
-        location.reload();
       })
       .catch((error) => {
         this.toastr.error('Identifiants incorrects', 'Erreur', {
