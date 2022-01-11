@@ -91,6 +91,16 @@ export class SingleRecetteComponent implements OnInit {
       })
   }
 
+  formatTime(time: string): string {
+    const hour = time.substring(0,2);
+    const min = time.substring(3,5);
+
+    if(hour == '00' && min == '00') return 'N/A'
+    else if(hour == '00') return min + ' min'
+    else if(min == '00') return hour + 'h'
+    else return hour + 'h' + min
+  }
+
   confirmDelete() {
     let disposable = this.simpleModalService.addModal(ModalComponent, {
       title: 'Confirmation',

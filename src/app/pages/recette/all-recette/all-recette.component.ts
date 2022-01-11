@@ -65,6 +65,16 @@ export class AllRecetteComponent implements OnInit {
       })
   }
 
+  formatTime(time: string): string {
+    const hour = time.substring(0,2);
+    const min = time.substring(3,5);
+
+    if(hour == '00' && min == '00') return 'N/A'
+    else if(hour == '00') return min + ' min'
+    else if(min == '00') return hour + 'h'
+    else return hour + 'h' + min
+  }
+
   goToRecette(id: number) {
     this.router.navigate(['/recette', id])
   }

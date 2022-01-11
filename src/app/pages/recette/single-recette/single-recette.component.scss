@@ -227,6 +227,7 @@
 
     .content-recette {
       gap: space(3);
+      padding-left: 0;
 
       .informations-recette {
         gap: space(2);
@@ -245,12 +246,20 @@
       border-right: none;
       border-bottom: 4px solid $black;
       padding-bottom: space(4);
+
+      .ingredients-content {
+        padding-right: 0;
+      }
     }
 
     .preparation-recette {
       min-width: 100%;
       min-height: 100%;
       padding-bottom: space(4);
+
+      .preparation-content {
+        padding-left: 0;
+      }
     }
   }
 }
