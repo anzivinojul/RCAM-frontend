@@ -18,8 +18,7 @@ const routes: Routes = [
   { path : 'recette/:id/update',
     component: UpdateRecetteComponent,
     canActivate: [RoleGuard], },
-  { path: '404', component :  ErrorComponent },
-  { path: '**', redirectTo: '/404' }
+  { path: '**', component :  ErrorComponent }
 ];
 
 

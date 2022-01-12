@@ -47,9 +47,9 @@ export class AuthService {
       passwordConfirmed: passwordConfirmed,
     })
       .toPromise()
-      .then((auth: any) => {
-        this.login(username, password).then(() => {
-          this.router.navigate(['/']);
+      .then(async (auth: any) => {
+        await this.login(username, password).then(() => {
+          location.reload();
         })
       })
       .catch((error) => {
