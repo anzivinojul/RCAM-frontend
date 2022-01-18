@@ -3,7 +3,7 @@
   <div class="left">
     <h2>Catégories</h2>
     <div class="list-categories">
-      <div class="card-category" [class.card-selected]="this.checkSelected(category.id)" *ngFor="let category of categories; let index = index" (click)="this.clickCategory(category.id)">
+      <div class="card-category" [class.card-selected]="this.checkSelected(category.name)" *ngFor="let category of categories; let index = index" (click)="this.clickCategory(category.name)">
         <span class="category">{{ category.name }}</span>
       </div>
     </div>
@@ -16,39 +16,43 @@
 
   <div class="right">
 
-    <div class="unknown-recette" [hidden]="this.unknownRecette">
-      <i class="ri-question-mark" [hidden]="this.unknownRecette"></i>
+    <div class="unknown-recette" [hidden]="!this.unknownRecette">
+      <i class="ri-question-mark"></i>
     </div>
 
-    <div class="card-recette" [hidden]="!this.unknownRecette">
+    <div class="notfound-recette" [hidden]="!this.notfoundRecette">
+      <span class="notfound">Aucun résultat trouvé.</span>
+    </div>
+
+    <div class="card-recette" [hidden]="!this.foundRecette">
       <div class="header-recette">
-        <div class="name-recette">Cookie</div>
+        <div class="name-recette">{{ recette ? recette.name : '' }}</div>
       </div>
       <div class="img-recette">
-        <img src="https://res.cloudinary.com/anzivinojul/image/upload/v1642492475/RCAM-staging/Cookie_ratto3.png" alt="Cookie">
+        <img src="{{ recette ? recette.img.image : '' }}" alt="{{ recette ? recette.name : '' }}">
       </div>
       <div class="informations-recette">
         <div class="time-recette">
           <i class="ri-time-line"></i>
           <div class="time-recette-text">
-            <span id="time-recette-text-responsive">Temps de préparation :</span><span> 20 min </span>
+            <span id="time-recette-text-responsive">Temps de préparation :</span><span> {{ recette ? formatTime(recette.time_preparation) : '' }} </span>
           </div>
         </div>
         <div class="people-recette">
           <i class="ri-user-line"></i>
           <div class="people-recette-text">
-            <span id="people-recette-text-responsive">Nombre de personnes : </span><span> 3 </span>
+            <span id="people-recette-text-responsive">Nombre de personnes : </span><span> {{ recette ? recette.people_number : '' }} </span>
           </div>
         </div>
         <div class="difficulty-recette">
           <i class="ri-trophy-line"></i>
           <div class="difficulty-recette-text">
-            <span id="difficulty-recette-text-responsive">Difficulté : </span><span> Facile </span>
+            <span id="difficulty-recette-text-responsive">Difficulté : </span><span>{{ recette ? recette.difficulty : '' }}</span>
           </div>
         </div>
       </div>
       <div class="btn-recette">
-        <button type="button" class="btn">Aller à la recette</button>
+        <button type="button" class="btn" (click)="this.goToRecette(recette.id)">Aller à la recette</button>
       </div>
     </div>
   </div>
