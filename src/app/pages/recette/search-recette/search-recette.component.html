@@ -1,0 +1,57 @@
+<div class="search-recette">
+
+  <div class="left">
+    <h2>Catégories</h2>
+    <div class="list-categories">
+      <div class="card-category" [class.card-selected]="this.checkSelected(category.id)" *ngFor="let category of categories; let index = index" (click)="this.clickCategory(category.id)">
+        <span class="category">{{ category.name }}</span>
+      </div>
+    </div>
+    <button type="button" class="btn" (click)="this.searchRecette()">Proposez moi une recette aléatoire</button>
+  </div>
+
+  <div class="center">
+    <i class="ri-arrow-right-line"></i>
+  </div>
+
+  <div class="right">
+
+    <div class="unknown-recette" [hidden]="this.unknownRecette">
+      <i class="ri-question-mark" [hidden]="this.unknownRecette"></i>
+    </div>
+
+    <div class="card-recette" [hidden]="!this.unknownRecette">
+      <div class="header-recette">
+        <div class="name-recette">Cookie</div>
+      </div>
+      <div class="img-recette">
+        <img src="https://res.cloudinary.com/anzivinojul/image/upload/v1642492475/RCAM-staging/Cookie_ratto3.png" alt="Cookie">
+      </div>
+      <div class="informations-recette">
+        <div class="time-recette">
+          <i class="ri-time-line"></i>
+          <div class="time-recette-text">
+            <span id="time-recette-text-responsive">Temps de préparation :</span><span> 20 min </span>
+          </div>
+        </div>
+        <div class="people-recette">
+          <i class="ri-user-line"></i>
+          <div class="people-recette-text">
+            <span id="people-recette-text-responsive">Nombre de personnes : </span><span> 3 </span>
+          </div>
+        </div>
+        <div class="difficulty-recette">
+          <i class="ri-trophy-line"></i>
+          <div class="difficulty-recette-text">
+            <span id="difficulty-recette-text-responsive">Difficulté : </span><span> Facile </span>
+          </div>
+        </div>
+      </div>
+      <div class="btn-recette">
+        <button type="button" class="btn">Aller à la recette</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

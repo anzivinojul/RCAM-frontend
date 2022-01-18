@@ -1,0 +1,175 @@
+@import '../../../../assets/scss/master.scss';
+
+.search-recette {
+  display: flex;
+  min-width: 100%;
+  min-height: calc(100vh - 192px);
+  margin-top: space(4);
+}
+
+.left {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: space(3);
+  border: 3px solid $black;
+  border-radius: 5px;
+
+  h2 {
+    font-size: 1.3em;
+    font-weight: 700;
+  }
+
+  .list-categories {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    padding: space(2);
+    gap: space(1);
+    height: 100%;
+    width: 100%;
+
+    .card-category {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: calc(50% - 5px);
+      height: auto;
+      padding: space(1);
+      background-color: $card;
+      border: 3px solid $black;
+      border-radius: 10px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($card, 10%);
+      }
+    }
+
+    .card-selected {
+      background-color: $black;
+      color: $white;
+
+      &:hover {
+        cursor: pointer;
+        background-color: lighten($black, 10%);
+      }
+    }
+  }
+}
+
+.center {
+  display: flex;
+  flex: 0.2;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    font-weight: 900;
+    font-size: 4em;
+  }
+}
+
+.right {
+  display: flex;
+  flex: 1;
+  padding: space(3);
+  border: 3px solid $black;
+  border-radius: 5px;
+  background-color: $card;
+
+  .unknown-recette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    i {
+      font-weight: 900;
+      font-size: 17em;
+    }
+
+  }
+
+  .card-recette {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: space(2);
+    height: 100%;
+    width: 100%;
+
+    .header-recette {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100%;
+
+      font-size: 1.3em;
+      font-weight: 900;
+
+      .name-recette {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+        width: auto;
+      }
+    }
+
+    .img-recette {
+
+      img {
+        width: 400px;
+        height: 268px;
+        border: 2px solid $black;
+        border-radius: 2px;
+      }
+    }
+
+    .informations-recette {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100%;
+      font-size: 1em;
+
+      .time-recette {
+        display: flex;
+        align-items: center;
+        gap: space(2);
+
+        i {
+          font-weight: 400;
+          font-size: 1.2em;
+        }
+      }
+
+      .people-recette {
+        display: flex;
+        align-items: center;
+        gap: space(2);
+
+        i {
+          font-weight: 400;
+          font-size: 1.2em;
+        }
+      }
+
+      .difficulty-recette {
+        display: flex;
+        align-items: center;
+        gap: space(2);
+
+        i {
+          font-weight: 400;
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+}
