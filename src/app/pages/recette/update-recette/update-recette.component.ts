@@ -288,8 +288,6 @@ export class UpdateRecetteComponent implements OnInit {
   }
 
   verifyForm(): boolean {
-    console.log(this.recetteForm);
-
 
     if(this.recetteForm.valid &&
        (this.categoryPK != '' || this.categoryRecette) &&

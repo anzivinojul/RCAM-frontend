@@ -16,6 +16,13 @@
   &:hover {
     background-color: lighten($black, 25%);
   }
+
+  &:disabled {
+
+    &:hover {
+      background-color: $black;
+    }
+  }
 }
 
 .btn-border {

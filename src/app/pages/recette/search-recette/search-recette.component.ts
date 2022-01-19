@@ -20,6 +20,8 @@ export class SearchRecetteComponent implements OnInit {
     private router: Router,
   ) { }
 
+  searching!: boolean;
+
   unknownRecette!: boolean;
   notfoundRecette!: boolean;
   foundRecette!: boolean;
@@ -29,13 +31,13 @@ export class SearchRecetteComponent implements OnInit {
   recette!: Recette;
   categories!: Array<Category>;
   categoriesSelected: Array<string> = new Array();
+  categoriesSaved: Array<string> = new Array();
 
   async getCategories() {
     await this.categoryService.getCategories()
       .toPromise()
       .then((categories: any) => {
         this.categories = categories;
-        console.log(this.categories);
       })
   }
 
@@ -59,39 +61,85 @@ export class SearchRecetteComponent implements OnInit {
     this.recette = recettes[Math.floor(Math.random() * recettes.length)];
   }
 
+  unknownShow() {
+    this.searching = false;
+    this.loadingRecette = false;
+    this.foundRecette = false;
+    this.notfoundRecette = false;
+    this.unknownRecette = true;
+  }
+
+  loaderShow() {
+    this.searching = true;
+    this.loadingRecette = true;
+    this.foundRecette = false;
+    this.notfoundRecette = false;
+    this.unknownRecette = false;
+  }
+
+  notfoundShow() {
+    this.searching = false;
+    this.loadingRecette = false;
+    this.foundRecette = false;
+    this.notfoundRecette = true;
+    this.unknownRecette = false;
+  }
+
+  foundShow() {
+    this.searching = false;
+    this.loadingRecette = false;
+    this.foundRecette = true;
+    this.notfoundRecette = false;
+    this.unknownRecette = false;
+  }
+
+
   async searchRecette() {
     if(this.categoriesSelected.length != 0) {
-      this.recettes = new Array<Recette>();
-      this.loadingRecette = true;
-      this.foundRecette = false;
-      this.notfoundRecette = false;
-      this.unknownRecette = false;
 
-      await this.categoriesSelected.forEach(async (category) => {
-        await this.recetteService.findRecettesByNameAndByCategory('', category)
-          .toPromise()
-          .then(async (recettes: any) => {
-            recettes.forEach((recette: any) => {
-              this.recettes.push(recette);
-            })
-            this.getRandomRecette(this.recettes);
-            await new Promise(time => setTimeout(time, 3000));
+      this.loaderShow();
 
-            if(this.recette) {
-              this.loadingRecette = false;
-              this.foundRecette = true;
-              this.notfoundRecette = false;
-              this.unknownRecette = false;
-            }
-            else {
-              this.loadingRecette = false;
-              this.foundRecette = false;
-              this.notfoundRecette = true;
-              this.unknownRecette = false;
-            }
-          });
-      })
+      if(JSON.stringify(this.categoriesSaved) !== JSON.stringify(this.categoriesSelected)) {
+
+        this.recettes = new Array<Recette>();
+
+        await this.categoriesSelected.forEach(async (category) => {
+          await this.recetteService.findRecettesByNameAndByCategory('', category)
+            .toPromise()
+            .then(async (recettes: any) => {
+              recettes.forEach((recette: any) => {
+                this.recettes.push(recette);
+              })
+              this.getRandomRecette(this.recettes);
+              await new Promise(time => setTimeout(time, 2000));
+
+              if(this.recette) {
+                this.foundShow();
+              }
+              else {
+                this.notfoundShow();
+              }
+            });
+        })
+
+        this.categoriesSaved = new Array<string>();
+        this.categoriesSaved.push(...this.categoriesSelected);
+      }
+
+      else {
+
+        this.getRandomRecette(this.recettes);
+        await new Promise(time => setTimeout(time, 2000));
+
+        if(this.recette) {
+          this.foundShow();
+        }
+        else {
+          this.notfoundShow();
+        }
+      }
     }
+
     else {
       this.toastr.error('Vous devez sélectionner au moins une catégorie.', 'Proposition impossible', {
         timeOut: 6000,
@@ -116,10 +164,7 @@ export class SearchRecetteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.unknownRecette = true;
-    this.notfoundRecette = false;
-    this.foundRecette = false;
-    this.loadingRecette = false;
+    this.unknownShow();
     this.getCategories();
   }
 

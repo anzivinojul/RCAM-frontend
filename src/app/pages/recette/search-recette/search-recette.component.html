@@ -7,7 +7,7 @@
         <span class="category">{{ category.name }}</span>
       </div>
     </div>
-    <button type="button" class="btn" (click)="this.searchRecette()">Proposez moi une recette aléatoire</button>
+    <button type="button" [disabled]="searching" class="btn" (click)="this.searchRecette()">Proposez moi une recette aléatoire</button>
   </div>
 
   <div class="center">
