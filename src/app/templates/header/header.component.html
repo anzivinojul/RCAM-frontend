@@ -13,7 +13,7 @@
 
         <div class="nav-fullWidth">
           <a [routerLink]="['/']" (click)="refresh()" id="linkFullWidth">Les recettes</a>
-          <a [routerLink]="['/search']" id="linkFullWidth">Proposez moi une recette</a>
+          <a [routerLink]="['/search']" id="linkFullWidth">La recette mystère</a>
         </div>
       </nav>
 
@@ -49,7 +49,7 @@
   <div class="headerMenuMobile" [ngClass]="{'headerMenuMobileSelected' : this.showMobileMenu}" *ngIf="showMobileMenu">
     <div class="linkSmallWidth">
       <a [routerLink]="['/']" (click)="refresh()" id="linkSmallWidth">Les recettes</a>
-      <a [routerLink]="['/search']" id="linkSmallWidth">Proposez moi une recette</a>
+      <a [routerLink]="['/search']" id="linkSmallWidth">La recette mystère</a>
     </div>
   </div>
 </header>

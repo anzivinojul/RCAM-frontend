@@ -22,6 +22,7 @@ import { ModalComponent } from './templates/modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 import { defaultSimpleModalOptions, SimpleModalModule } from 'ngx-simple-modal';
 import { SearchRecetteComponent } from './pages/recette/search-recette/search-recette.component';
+import { LoaderComponent } from './templates/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SearchRecetteComponent } from './pages/recette/search-recette/search-re
     ErrorComponent,
     DigitOnlyDirective,
     SearchRecetteComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

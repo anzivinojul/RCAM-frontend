@@ -24,9 +24,13 @@
       <span class="notfound">Aucun résultat trouvé.</span>
     </div>
 
+    <div class="loading-recette" [hidden]="!this.loadingRecette">
+      <app-loader></app-loader>
+    </div>
+
     <div class="card-recette" [hidden]="!this.foundRecette">
       <div class="header-recette">
-        <div class="name-recette">{{ recette ? recette.name : '' }}</div>
+        <span id="name-recette">{{ recette ? recette.name : '' }}</span>
       </div>
       <div class="img-recette">
         <img src="{{ recette ? recette.img.image : '' }}" alt="{{ recette ? recette.name : '' }}">

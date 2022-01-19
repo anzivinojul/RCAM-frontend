@@ -16,13 +16,14 @@
 .description-recette {
   display: flex;
   min-width: 100%;
-  min-height: 100%;
+  min-height: auto;
   padding: space(3);
-  margin-top: space(4);
   padding-bottom: space(6);
+  margin-top: space(4);
   border-bottom: 4px solid $black;
 
   .img-recette {
+    min-height: 100%;
 
     img {
       width: 400px;
@@ -36,29 +37,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: space(6);
     padding-left: space(6);
     min-width: calc(100% - 424px);
+    min-height: 100%;
 
     .header-recette {
       font-size: 2.5em;
       font-weight: 900;
-      width: 100%;
+      min-width: 100%;
+      min-height: auto;
 
       .name-recette {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         text-align: center;
-        width:100%;
       }
     }
 
     .informations-recette {
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
       align-items: center;
-      min-height: calc(100% - 40px);
+      justify-content: center;
+      gap: space(2);
+      min-height: auto;
       font-size: 1.2em;
 
       .time-preparation-recette {

@@ -23,6 +23,7 @@ export class SearchRecetteComponent implements OnInit {
   unknownRecette!: boolean;
   notfoundRecette!: boolean;
   foundRecette!: boolean;
+  loadingRecette!: boolean;
 
   recettes!: Array<Recette>;
   recette!: Recette;
@@ -56,27 +57,34 @@ export class SearchRecetteComponent implements OnInit {
 
   getRandomRecette(recettes: Array<Recette>) {
     this.recette = recettes[Math.floor(Math.random() * recettes.length)];
-    console.log(this.recette);
   }
 
   async searchRecette() {
     if(this.categoriesSelected.length != 0) {
       this.recettes = new Array<Recette>();
+      this.loadingRecette = true;
+      this.foundRecette = false;
+      this.notfoundRecette = false;
+      this.unknownRecette = false;
+
       await this.categoriesSelected.forEach(async (category) => {
         await this.recetteService.findRecettesByNameAndByCategory('', category)
           .toPromise()
-          .then((recettes: any) => {
+          .then(async (recettes: any) => {
             recettes.forEach((recette: any) => {
               this.recettes.push(recette);
             })
             this.getRandomRecette(this.recettes);
+            await new Promise(time => setTimeout(time, 3000));
 
             if(this.recette) {
+              this.loadingRecette = false;
               this.foundRecette = true;
               this.notfoundRecette = false;
               this.unknownRecette = false;
             }
             else {
+              this.loadingRecette = false;
               this.foundRecette = false;
               this.notfoundRecette = true;
               this.unknownRecette = false;
@@ -111,6 +119,7 @@ export class SearchRecetteComponent implements OnInit {
     this.unknownRecette = true;
     this.notfoundRecette = false;
     this.foundRecette = false;
+    this.loadingRecette = false;
     this.getCategories();
   }
 
