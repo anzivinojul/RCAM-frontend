@@ -25,6 +25,10 @@ export class AllRecetteComponent implements OnInit {
   filterNameRecette!: string;
   filterCategoryRecette!: string;
 
+  loadingRecettes!: boolean;
+  notFoundRecettes!: boolean;
+  foundRecettes!: boolean;
+
   ngOnInit(): void {
     this.resetFilter();
     this.getRecettes();
@@ -45,23 +49,42 @@ export class AllRecetteComponent implements OnInit {
   }
 
   async getRecettes() {
+
+    this.loaderShow();
+
     await this.recetteService.findRecettes()
       .toPromise()
       .then((recettes: any) => {
         this.recettesInfos = recettes;
+
+        if(this.recettesInfos.length != 0) {
+          this.foundShow();
+        }
+        else {
+          this.notFoundShow();
+        }
       })
   }
 
   async getRecettesByNameAndByCategory(name: string, category: string) {
 
+    this.loaderShow();
+
     if(category === 'Choisir une catégorie') {
       category = '';
     }
 
-    await this.recetteService.findRecettesByNameAndByCategory(name, category)
+    await this.recetteService.findRecettesByNameAndByCategory(name, encodeURIComponent(category))
       .toPromise()
       .then((recettes: any) => {
-        this.recettesInfos = recettes;
+          this.recettesInfos = recettes;
+
+          if(this.recettesInfos.length != 0) {
+            this.foundShow();
+          }
+          else {
+            this.notFoundShow();
+          }
       })
   }
 
@@ -73,6 +96,24 @@ export class AllRecetteComponent implements OnInit {
     else if(hour == '00') return min + ' min'
     else if(min == '00') return hour + 'h'
     else return hour + 'h' + min
+  }
+
+  loaderShow() {
+    this.loadingRecettes = true;
+    this.notFoundRecettes = false;
+    this.foundRecettes = false;
+  }
+
+  notFoundShow() {
+    this.loadingRecettes = false;
+    this.notFoundRecettes = true;
+    this.foundRecettes = false;
+  }
+
+  foundShow() {
+    this.loadingRecettes = false;
+    this.notFoundRecettes = false;
+    this.foundRecettes = true;
   }
 
   goToRecette(id: number) {

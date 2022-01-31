@@ -17,7 +17,16 @@
     </div>
   </div>
 
-  <div class="list-recettes">
+  <div class="loading-recettes" [hidden]="!this.loadingRecettes">
+    <app-loader-pot></app-loader-pot>
+  </div>
+
+
+  <div class="not-found-recettes" [hidden]="!this.notFoundRecettes">
+    <span class="not-found">Aucun résultat trouvé.</span>
+  </div>
+
+  <div class="list-recettes" [hidden]="!this.foundRecettes">
     <div class="card-recette" *ngFor="let recette of recettesInfos" (click)="this.goToRecette(recette.id)">
       <div class="img-recette">
         <img src="{{ recette.img.image }}" alt="{{ recette.name }}">

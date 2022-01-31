@@ -48,12 +48,12 @@ export class SearchRecetteComponent implements OnInit {
       })
     }
     else {
-    this.categoriesSelected.push(category);
+      this.categoriesSelected.push(encodeURIComponent(category));
     }
   }
 
   checkSelected(category: string): boolean {
-    if(this.categoriesSelected.includes(category)) return true;
+    if(this.categoriesSelected.includes(encodeURIComponent(category))) return true;
     else return false;
   }
 

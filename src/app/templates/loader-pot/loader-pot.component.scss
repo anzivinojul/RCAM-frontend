@@ -1,0 +1,140 @@
+@import '../../../assets/scss/master.scss';
+
+$component-dimension: 350px;
+$timing: 1.2s;
+$color-shadow: lightgray;
+$pot-color-light: #3d3d3d;
+$pot-color-dark: $black;
+$loader-color: $orange;
+
+@keyframes loader {
+  0% {
+    width: 12%;
+    transform: rotate(0deg);
+  }
+  10% {
+    left: 7%;
+    transform: rotate(0deg);
+  }
+  20% {
+    width: 0%;
+    left: 27%;
+  }
+  30% {
+    width: 25%;
+  }
+  50% {
+    left: 22%;
+    width: 35%;
+  }
+  70% {
+    width: 30%;
+    left: 25%;
+    transform: rotate(240deg);
+  }
+  90% {
+    width: 30%;
+    left: 17%;
+  }
+  100% {
+    width: 2%;
+    left: 32%;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pot {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: top right;
+  }
+  10% {
+    transform: rotate(-2deg);
+    transform-origin: top right;
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes shadow {
+  0% {
+    width: 30%;
+  }
+  50% {
+    width: 40%;
+    left: 20px;
+  }
+  100% {
+    width: 30%;
+  }
+}
+
+.pot-loader {
+  width: $component-dimension;
+  height: $component-dimension;
+  margin: 100px auto;
+  margin-left: 15%;
+
+  .loader {
+    position: relative;
+    top: 10%;
+    left: 7%;
+    z-index: 0;
+    width: 80%;
+    height: 45%;
+    border: 10px solid transparent;
+    border-bottom: 10px solid $loader-color;
+    border-radius: 50%;
+    animation: loader $timing infinite;
+    animation-timing-function: linear;
+  }
+
+  .pot-container {
+    display:flex;
+    width: 100%;
+    animation: pot $timing infinite;
+  }
+
+  .pot {
+    width: 50%;
+    height: 100px;
+    background: linear-gradient($pot-color-light, $pot-color-dark);
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .handle-left {
+    width: 7%;
+    height: 10px;
+    background: linear-gradient($pot-color-light, $pot-color-dark);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .handle-right {
+    width: 7%;
+    height: 10px;
+    background: linear-gradient($pot-color-light, $pot-color-dark);
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  .shadow {
+    position: relative;
+    top: 15%;
+    left: 15%;
+    width: 30%;
+    height: 8px;
+    background: $color-shadow;
+    border-radius: 20px;
+    animation: shadow $timing infinite;
+  }
+}

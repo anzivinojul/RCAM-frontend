@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoaderComponent } from './loader.component';
+import { LoaderPotComponent } from './loader-pot.component';
 
-describe('LoaderComponent', () => {
-  let component: LoaderComponent;
-  let fixture: ComponentFixture<LoaderComponent>;
+describe('LoaderPotComponent', () => {
+  let component: LoaderPotComponent;
+  let fixture: ComponentFixture<LoaderPotComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoaderComponent ]
+      declarations: [ LoaderPotComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoaderComponent);
+    fixture = TestBed.createComponent(LoaderPotComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

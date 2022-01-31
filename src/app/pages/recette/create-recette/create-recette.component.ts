@@ -62,7 +62,8 @@ export class CreateRecetteComponent implements OnInit {
   }
 
   getPKCategory(name: string) {
-    this.categoryService.findCategoryByName(name).subscribe((category: any) => {
+    this.categoryService.findCategoryByName(encodeURIComponent(name)).subscribe((category: any) => {
+
       if(category[0]) {
         this.categoryPK = category[0].id;
       }

@@ -3,8 +3,8 @@
 .all-recette {
   display: flex;
   flex-direction: column;
-  min-width: 100%;
-  min-height: calc(100vh - 192px);
+  width: 100%;
+  height: calc(100vh - 192px);
 }
 
 .filter-bar {
@@ -39,6 +39,30 @@
       border: 2px solid $black;
       font-size: 0.9em;
     }
+  }
+}
+
+.loading-recettes {
+  margin-top: space(2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.not-found-recettes {
+  margin-top: space(2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+
+  span {
+    font-weight: 900;
+    font-size: 3.5em;
   }
 }
 

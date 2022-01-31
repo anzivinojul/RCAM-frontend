@@ -22,7 +22,8 @@ import { ModalComponent } from './templates/modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 import { defaultSimpleModalOptions, SimpleModalModule } from 'ngx-simple-modal';
 import { SearchRecetteComponent } from './pages/recette/search-recette/search-recette.component';
-import { LoaderComponent } from './templates/loader/loader.component';
+import { LoaderPanComponent } from './templates/loader-pan/loader-pan.component';
+import { LoaderPotComponent } from './templates/loader-pot/loader-pot.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LoaderComponent } from './templates/loader/loader.component';
     ErrorComponent,
     DigitOnlyDirective,
     SearchRecetteComponent,
-    LoaderComponent,
+    LoaderPanComponent,
+    LoaderPotComponent,
   ],
   imports: [
     BrowserModule,
