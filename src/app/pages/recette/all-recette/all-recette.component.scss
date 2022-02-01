@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 192px);
+  height: calc(100% - 192px);
 }
 
 .filter-bar {
@@ -43,7 +43,7 @@
 }
 
 .loading-recettes {
-  margin-top: space(2);
+  margin-top: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +52,7 @@
 }
 
 .not-found-recettes {
-  margin-top: space(2);
+  margin-top: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;

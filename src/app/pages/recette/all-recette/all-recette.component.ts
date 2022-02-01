@@ -54,7 +54,8 @@ export class AllRecetteComponent implements OnInit {
 
     await this.recetteService.findRecettes()
       .toPromise()
-      .then((recettes: any) => {
+      .then(async (recettes: any) => {
+        await new Promise(time => setTimeout(time, 1000));
         this.recettesInfos = recettes;
 
         if(this.recettesInfos.length != 0) {
@@ -67,8 +68,6 @@ export class AllRecetteComponent implements OnInit {
   }
 
   async getRecettesByNameAndByCategory(name: string, category: string) {
-
-    this.loaderShow();
 
     if(category === 'Choisir une catégorie') {
       category = '';
